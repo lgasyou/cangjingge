@@ -18,6 +18,7 @@
         <junit.version>4.13</junit.version>
         <log4j.version>2.13.3</log4j.version>
         <lombok.version>1.18.12</lombok.version>
+        <mysql.version>8.0.11</mysql.version>
     </properties>
 
     <profiles>
@@ -69,6 +70,11 @@
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
                 <version>${lombok.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>${mysql.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

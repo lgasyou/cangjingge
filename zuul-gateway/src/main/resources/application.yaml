@@ -1,0 +1,20 @@
+spring:
+  profiles:
+    active: dev
+
+  application:
+    name: zuul-gateway
+
+eureka:
+  instance:
+    instance-id: zuul
+
+zuul:
+  routes:
+    auth:
+      path: /auth/**
+      serviceId: authorization
+    fiction:
+      path: /fictions/**
+      serviceId: fiction
+  ignored-services: "*"

@@ -1,0 +1,10 @@
+spring:
+  profiles:
+    active: dev
+
+  application:
+    name: fiction
+
+eureka:
+  instance:
+    instance-id: fiction

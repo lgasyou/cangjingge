@@ -1,0 +1,11 @@
+server:
+  port: 80
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka.default/eureka/
+
+spring:
+  devtools:
+    add-properties: false

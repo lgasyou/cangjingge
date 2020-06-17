@@ -1,9 +1,10 @@
 package cn.edu.bit.cangjingge.fiction.controller;
 
 import cn.edu.bit.cangjingge.common.exception.BusinessException;
-import cn.edu.bit.cangjingge.common.response.Result;
-import cn.edu.bit.cangjingge.common.response.ResultUtil;
+import cn.edu.bit.cangjingge.common.response.Response;
+import cn.edu.bit.cangjingge.common.response.ResponseUtil;
 import cn.edu.bit.cangjingge.fiction.service.FictionServiceImpl;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,13 +17,14 @@ public class FictionController {
     private FictionServiceImpl fictionService;
 
     @GetMapping("/hello-error")
-    public Result<String> helloError() {
+    public Response<String> helloError() {
         throw new BusinessException(400, "?");
     }
 
     @GetMapping("/hello")
-    public Result<Integer> hello() {
-        return ResultUtil.success(fictionService.hello());
+    @PreAuthorize("hasRole('ADMIN')")
+    public Response<Integer> hello() {
+        return ResponseUtil.success(fictionService.hello());
     }
 
 }

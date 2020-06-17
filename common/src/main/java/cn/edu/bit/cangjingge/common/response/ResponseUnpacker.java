@@ -2,10 +2,10 @@ package cn.edu.bit.cangjingge.common.response;
 
 import cn.edu.bit.cangjingge.common.exception.BusinessException;
 
-public class ResultUnpacker {
+public class ResponseUnpacker {
 
-    public static <T> T unpack(Result<T> response) {
-        if (response.getStatus() != ResultStatusEnum.SUCCESS.getStatus()) {
+    public static <T> T unpack(Response<T> response) throws BusinessException {
+        if (response.getStatus() != ResponseStatusEnum.SUCCESS.getStatus()) {
             throw new BusinessException(response.getStatus(), response.getReason());
         }
         return response.getData();

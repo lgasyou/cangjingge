@@ -3,7 +3,7 @@ package cn.edu.bit.cangjingge.common.response;
 import lombok.Data;
 
 @Data
-public class Result<T> {
+public class Response<T> {
 
     // 状态码
     private Integer status;

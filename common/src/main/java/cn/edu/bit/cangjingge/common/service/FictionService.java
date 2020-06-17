@@ -1,16 +1,16 @@
 package cn.edu.bit.cangjingge.common.service;
 
-import cn.edu.bit.cangjingge.common.response.Result;
+import cn.edu.bit.cangjingge.common.response.Response;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 
-@FeignClient(value = "FICTION", fallbackFactory = FictionServiceFallbackFactory.class)
+@FeignClient(value = "FICTION")
 public interface FictionService {
 
-    @GetMapping("/fictions/hello")
-    Result<Integer> hello();
+    @GetMapping("/hello")
+    Response<Integer> hello();
 
-    @GetMapping("/fictions/hello-error")
-    Result<String> helloError();
+    @GetMapping("/hello-error")
+    Response<String> helloError();
 
 }

@@ -1,24 +1,32 @@
 package cn.edu.bit.cangjingge.authorization.controller;
 
-import cn.edu.bit.cangjingge.common.response.ResultUnpacker;
+import cn.edu.bit.cangjingge.common.response.ResponseUnpacker;
 import cn.edu.bit.cangjingge.common.service.FictionService;
-import cn.edu.bit.cangjingge.common.response.Result;
-import cn.edu.bit.cangjingge.common.response.ResultUtil;
+import cn.edu.bit.cangjingge.common.response.Response;
+import cn.edu.bit.cangjingge.common.response.ResponseUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.Resource;
+import java.security.Principal;
+
 @RestController
 public class AuthorizationController {
 
-    @Autowired
+    @Resource
     private FictionService fictionService;
 
     @GetMapping("/hello")
-    public Result<Integer> hello() {
-        Result<Integer> result = fictionService.hello();
-        Integer hello = ResultUnpacker.unpack(result);
-        return ResultUtil.success(hello);
+    public Response<Integer> hello() {
+        Response<Integer> response = fictionService.hello();
+        Integer hello = ResponseUnpacker.unpack(response);
+        return ResponseUtil.success(hello);
+    }
+
+    @GetMapping("/oauth/user")
+    public Principal user(Principal principal) {
+        return principal;
     }
 
 }

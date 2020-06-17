@@ -1,4 +1,4 @@
-package cn.edu.bit.cangjingge.fiction;
+package cn.edu.bit.cangjingge.fictionreview;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -9,11 +9,11 @@ import org.springframework.context.annotation.ComponentScan;
 @SpringBootApplication
 @EnableEurekaClient
 @EnableFeignClients(basePackages = "cn.edu.bit.cangjingge.common.service")
-@ComponentScan(basePackages = {"cn.edu.bit.cangjingge.fiction", "cn.edu.bit.cangjingge.common.exception"})
-public class FictionApplication {
+@ComponentScan(basePackages = {"cn.edu.bit.cangjingge.fictionreview", "cn.edu.bit.cangjingge.common.exception"})
+public class FictionReviewApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(FictionApplication.class, args);
+        SpringApplication.run(FictionReviewApplication.class, args);
     }
 
 }

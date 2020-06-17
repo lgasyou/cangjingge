@@ -101,6 +101,8 @@
         <module>hystrix-dashboard</module>
         <module>fiction</module>
         <module>authorization</module>
+        <module>user</module>
+        <module>fiction-review</module>
     </modules>
 
 </project>

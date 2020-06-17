@@ -17,4 +17,10 @@ zuul:
     fiction:
       path: /fictions/**
       serviceId: fiction
+    user:
+      path: /users/**
+      serviceId: user
+    fiction-review:
+      path: /fiction-reviews/**
+      serviceId: fiction-review
   ignored-services: "*"

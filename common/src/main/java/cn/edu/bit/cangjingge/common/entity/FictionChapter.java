@@ -11,6 +11,9 @@ public class FictionChapter {
     // 小说ID
     private Long fictionId;
 
+    // 章节名称
+    private String title;
+
     // 内容
     private String content;
 

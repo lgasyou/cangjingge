@@ -1,0 +1,10 @@
+spring:
+  profiles:
+    active: dev
+
+  application:
+    name: user
+
+eureka:
+  instance:
+    instance-id: user

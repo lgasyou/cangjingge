@@ -1,0 +1,10 @@
+spring:
+  profiles:
+    active: dev
+
+  application:
+    name: fiction-review
+
+eureka:
+  instance:
+    instance-id: fiction-review

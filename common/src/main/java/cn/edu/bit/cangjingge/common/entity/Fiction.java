@@ -1,25 +1,28 @@
 package cn.edu.bit.cangjingge.common.entity;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.util.Date;
 
+@ApiModel("小说")
 @Data
 public class Fiction {
 
-    // 小说ID
+    @ApiModelProperty("小说ID")
     private Long id;
 
-    // 标题
+    @ApiModelProperty("标题")
     private String title;
 
-    // 简介
+    @ApiModelProperty("简介")
     private String description;
 
-    // 创建时间
+    @ApiModelProperty("创建时间")
     private Date createTimestamp;
 
-    // 上次修改时间
+    @ApiModelProperty("上次修改时间")
     private Date modifiedTimestamp;
 
 }

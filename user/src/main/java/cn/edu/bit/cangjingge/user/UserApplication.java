@@ -9,7 +9,7 @@ import org.springframework.context.annotation.ComponentScan;
 @SpringBootApplication
 @EnableEurekaClient
 @EnableFeignClients(basePackages = "cn.edu.bit.cangjingge.common.service")
-@ComponentScan(basePackages = {"cn.edu.bit.cangjingge.user", "cn.edu.bit.cangjingge.common.exception"})
+@ComponentScan(basePackages = {"cn.edu.bit.cangjingge.user", "cn.edu.bit.cangjingge.common"})
 public class UserApplication {
 
     public static void main(String[] args) {

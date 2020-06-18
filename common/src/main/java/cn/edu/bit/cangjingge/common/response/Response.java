@@ -1,23 +1,26 @@
 package cn.edu.bit.cangjingge.common.response;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+@ApiModel("API统一返回结构")
 @Data
 public class Response<T> {
 
-    // 状态码
+    @ApiModelProperty("状态码")
     private Integer status;
 
-    // 时间戳
+    @ApiModelProperty("时间戳")
     private Long timestamp;
 
-    // 附加信息
+    @ApiModelProperty("状态信息")
     private String message;
 
-    // 错误信息
+    @ApiModelProperty("错误信息")
     private String reason = "";
 
-    // 返回数据
+    @ApiModelProperty("返回数据")
     private T data;
 
 }

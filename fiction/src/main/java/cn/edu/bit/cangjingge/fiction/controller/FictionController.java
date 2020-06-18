@@ -6,9 +6,9 @@ import cn.edu.bit.cangjingge.common.exception.BusinessException;
 import cn.edu.bit.cangjingge.common.response.Response;
 import cn.edu.bit.cangjingge.common.response.ResponseUtil;
 import cn.edu.bit.cangjingge.fiction.service.FictionServiceImpl;
+import io.swagger.annotations.ApiOperation;
 import net.bytebuddy.implementation.bind.annotation.Default;
 import org.apache.commons.lang.NotImplementedException;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -21,9 +21,9 @@ public class FictionController {
     private FictionServiceImpl fictionService;
 
     /**
-     * 使用关键字对小说进行搜索，匹配标题关键字
      * @return 搜索到的小说元数据（可能为空，也可能为多个）
      */
+    @ApiOperation("使用关键字对小说进行搜索，匹配标题关键字")
     @GetMapping("/")
     public Response<List<Fiction>> searchByTitle(
             final String title
@@ -32,10 +32,10 @@ public class FictionController {
     }
 
     /**
-     * 使用ID对小说进行精确内容获取
      * @return 搜索到的小说元数据
      * @exception BusinessException 抛出CHAPTER_NOT_FOUND代表的异常
      */
+    @ApiOperation("使用ID对小说进行精确内容获取")
     @GetMapping("/{id}")
     public Response<Fiction> getById(
             @PathVariable("id") final Long id
@@ -44,9 +44,9 @@ public class FictionController {
     }
 
     /**
-     * 新建一个小说的元数据
      * @return 创建小说的元数据
      */
+    @ApiOperation("新建一个小说的元数据")
     @PostMapping("/")
     public Response<Fiction> createFiction(
             final Long authorId,
@@ -62,7 +62,6 @@ public class FictionController {
     }
 
     @GetMapping("/hello")
-    @PreAuthorize("hasRole('ADMIN')")
     public Response<Integer> hello() {
         return ResponseUtil.success(fictionService.hello());
     }

@@ -8,7 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
-import org.springframework.security.access.AccessDeniedException;
+//import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -29,12 +29,12 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         return ResponseUtil.error(exception.getCode(), exception.getMessage());
     }
 
-    // 处理本应用程序中出现的拒绝访问异常
-    @ExceptionHandler(AccessDeniedException.class)
-    @ResponseBody
-    public Response<String> handleAccessDeniedException() {
-        return handleBusinessException(new BusinessException(ResponseStatusEnum.ACCESS_DENIED));
-    }
+//    // 处理本应用程序中出现的拒绝访问异常
+//    @ExceptionHandler(AccessDeniedException.class)
+//    @ResponseBody
+//    public Response<String> handleAccessDeniedException() {
+//        return handleBusinessException(new BusinessException(ResponseStatusEnum.ACCESS_DENIED));
+//    }
 
     // 处理本应用程序中出现的UndeclaredThrowable异常
     @ExceptionHandler(UndeclaredThrowableException.class)
@@ -45,9 +45,9 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
             BusinessException cre = (BusinessException)throwable;
             return handleBusinessException(cre);
         }
-        if (throwable instanceof AccessDeniedException) {
-            return handleAccessDeniedException();
-        }
+//        if (throwable instanceof AccessDeniedException) {
+//            return handleAccessDeniedException();
+//        }
         if (throwable instanceof RuntimeException) {
             RuntimeException runtimeException = (RuntimeException)throwable;
             return handleRuntimeException(runtimeException);

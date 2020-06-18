@@ -1,20 +1,23 @@
 package cn.edu.bit.cangjingge.common.entity;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+@ApiModel("小说章节")
 @Data
 public class FictionChapter {
 
-    // 章节ID
+    @ApiModelProperty("章节ID")
     private Long id;
 
-    // 小说ID
+    @ApiModelProperty("小说ID")
     private Long fictionId;
 
-    // 章节名称
+    @ApiModelProperty("章节名称")
     private String title;
 
-    // 内容
+    @ApiModelProperty("内容")
     private String content;
 
 }

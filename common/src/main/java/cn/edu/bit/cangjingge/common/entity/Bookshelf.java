@@ -1,17 +1,20 @@
 package cn.edu.bit.cangjingge.common.entity;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+@ApiModel("书架条目")
 @Data
 public class Bookshelf {
 
-    // ID
+    @ApiModelProperty("书籍条目ID")
     private Long id;
 
-    // 用户ID
+    @ApiModelProperty("用户ID")
     private Long userId;
 
-    // 小说ID
+    @ApiModelProperty("小说ID")
     private Long fictionId;
 
 }

@@ -1,20 +1,23 @@
 package cn.edu.bit.cangjingge.common.entity;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+@ApiModel("小说书评")
 @Data
 public class FictionReview {
 
-    // 书评ID
+    @ApiModelProperty("书评ID")
     private Long id;
 
-    // 用户ID
+    @ApiModelProperty("用户ID")
     private Long userId;
 
-    // 评分
+    @ApiModelProperty("评分")
     private Integer rate;
 
-    // 内容
+    @ApiModelProperty("内容")
     private String content;
 
 }

@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: dev
+    active: "@activatedProperties@"
 
   application:
     name: fiction-review

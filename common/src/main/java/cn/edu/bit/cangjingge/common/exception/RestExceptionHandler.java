@@ -8,13 +8,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
-//import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import java.lang.reflect.UndeclaredThrowableException;
+
+//import org.springframework.security.access.AccessDeniedException;
 
 @RestControllerAdvice
 @Order(Ordered.HIGHEST_PRECEDENCE)
@@ -26,7 +27,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(BusinessException.class)
     @ResponseBody
     public Response<String> handleBusinessException(BusinessException exception) {
-        return ResponseUtil.error(exception.getCode(), exception.getMessage());
+        return ResponseUtil.error(exception.getStatus(), exception.getMessage());
     }
 
 //    // 处理本应用程序中出现的拒绝访问异常

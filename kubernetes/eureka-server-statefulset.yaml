@@ -1,0 +1,57 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: eureka-server-configmap
+data:
+  default-zone: --eureka.client.serviceUrl.defaultZone=http://eureka-server-0.${APP_NAME}/eureka/
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: eureka-server
+  namespace: cangjingge
+spec:
+  serviceName: eureka-server
+  replicas: 1
+  podManagementPolicy: Parallel
+  selector:
+    matchLabels:
+      app: eureka-server
+  template:
+    metadata:
+      labels:
+        app: eureka-server
+    spec:
+      restartPolicy: Always
+      containers:
+      - name: eureka-server
+        image: lgasyou/cangjingge-eureka-server:v1.0
+        env:
+          - name: APP_OPTS
+            valueFrom:
+              configMapKeyRef:
+                key: default-zone
+                name: eureka-server-configmap
+        resources:
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+          requests:
+            memory: "128Mi"
+            cpu: "50m"
+        ports:
+        - containerPort: 80
+        readinessProbe:              #就绪探针
+          tcpSocket:
+            port: 80
+          initialDelaySeconds: 20    #延迟加载时间
+          periodSeconds: 5           #重试时间间隔
+          timeoutSeconds: 10         #超时时间设置
+          failureThreshold: 5        #探测失败的重试次数
+        livenessProbe:               #存活探针
+          tcpSocket:
+            port: 80
+          initialDelaySeconds: 60    #延迟加载时间
+          periodSeconds: 5           #重试时间间隔
+          timeoutSeconds: 5          #超时时间设置
+          failureThreshold: 3        #探测失败的重试次数

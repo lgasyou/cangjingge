@@ -18,7 +18,7 @@ function build::build-all-image() {
   for module in ${SUBMODULES[*]}; do
     echo "Building image of module ${module}..."
     cd "${module}"
-    package-and-build-image
+    build::package-and-build-image
     cd "${BASE_DIR}"
   done
 }

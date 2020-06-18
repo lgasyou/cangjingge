@@ -15,6 +15,7 @@ function build::package-and-build-image() {
 }
 
 function build::build-all-image() {
+  mvn clean package
   for module in ${SUBMODULES[*]}; do
     echo "Building image of module ${module}..."
     cd "${module}"

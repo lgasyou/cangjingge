@@ -6,4 +6,4 @@ set -o pipefail
 
 source "jenkins/scripts/common.sh"
 
-deliver::deliver-all
+deliver::deliver_all

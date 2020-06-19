@@ -6,4 +6,4 @@ set -o pipefail
 
 source "jenkins/scripts/common.sh"
 
-init::install-docker-ce
+init::install_docker_ce

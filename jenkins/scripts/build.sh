@@ -6,4 +6,4 @@ set -o pipefail
 
 source "jenkins/scripts/common.sh"
 
-build::build-all-image
+build::build_all_image

@@ -32,15 +32,15 @@
             <properties>
                 <activatedProperties>dev</activatedProperties>
             </properties>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
         </profile>
         <profile>
             <id>product</id>
             <properties>
                 <activatedProperties>product</activatedProperties>
             </properties>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
         </profile>
     </profiles>
 

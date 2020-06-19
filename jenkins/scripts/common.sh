@@ -17,10 +17,17 @@ readonly SUBMODULES=(
 )
 readonly BASE_DIR=$(pwd)
 readonly IMAGE_PREFIX="lgasyou"
+readonly DOCKER_CE_VERSION=18.06.3-ce
 
 tag=""
 full_image_name=""
 newest_image_existed=""
+
+function init::install-docker-ce() {
+  curl -fsSLO "https://download.docker.com/linux/static/stable/x86_64/docker-${DOCKER_CE_VERSION}".tgz
+  tar xzvf docker-"${DOCKER_CE_VERSION}".tgz --strip 1 -C /usr/local/bin docker/docker
+  rm docker-"${DOCKER_CE_VERSION}".tgz
+}
 
 function build::package-and-build-image() {
   mvn "${MVN_OPTS}" clean package spring-boot:repackage dockerfile:build

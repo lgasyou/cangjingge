@@ -1,14 +1,18 @@
 package cn.edu.bit.cangjingge.authorization.controller;
 
+import cn.edu.bit.cangjingge.common.entity.UserAuth;
 import cn.edu.bit.cangjingge.common.response.Response;
 import cn.edu.bit.cangjingge.common.response.ResponseUnpacker;
 import cn.edu.bit.cangjingge.common.response.ResponseUtil;
 import cn.edu.bit.cangjingge.common.service.FictionService;
+import io.swagger.annotations.ApiOperation;
+import org.apache.commons.lang.NotImplementedException;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
-import java.security.Principal;
 
 @RestController
 public class AuthorizationController {
@@ -23,9 +27,19 @@ public class AuthorizationController {
         return ResponseUtil.success(hello);
     }
 
-    @GetMapping("/oauth/user")
-    public Principal user(Principal principal) {
-        return principal;
+    @ApiOperation("获得AccessToken以及RefreshToken")
+    @PostMapping("/token")
+    public Response<UserAuth> getToken(
+            final String email,
+            final String password
+    ) {
+        throw new NotImplementedException();
+    }
+
+    @ApiOperation("使用RefreshToken刷新令牌")
+    @PutMapping("/token")
+    public Response<UserAuth> updateToken() {
+        throw new NotImplementedException();
     }
 
 }

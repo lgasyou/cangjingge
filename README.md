@@ -26,6 +26,8 @@
 3. 删除书评
 
 ## 后端微服务模块
+后端提供服务的模块是下面4个：
+
 ### 模块authorization：用户授权
 1. 注册：使用邮箱验证码
 2. 登录：用户名（即邮箱），密码
@@ -49,10 +51,27 @@
 	* 权限：读者权限及以上
 	* 读者可删除自己的书评，管理员可以删除所有人的
 
+除此之外，还有另外4个模块提供了基础服务。
+
+### 模块common：公共函数
+1. entity：系统返回给前端的数据实体（当前也是数据库中存在的表项）
+2. exception：包含系统中统一的基础异常BusinessException，以及统一的异常处理器RestExceptionHandler
+3. response：包含统一返回至前端的标准实体，系统错误的枚举类，以及Response的装箱拆箱辅助类
+4. security：包含鉴权相关文件（当前未使用）
+5. service：包含Feign接口
+6. swagger：Swagger暴露接口的配置类
+
+### 模块eureka-server
+1. 服务注册中心
+
+### 模块hystrix-dashboard
+1. Hystrix监测端
+
+### 模块zuul-gateway
+1. Zuul网关，用于服务聚合以及提供SwaggerUI
+
 ## TODO
 1. 后端接口实现
 	* 小说、用户、小说书评等模块下的Service实现
 2. 鉴权机制实现
 	* 目前目标是使用SSO方式进行统一的鉴权
-3. 持续集成
-	* Webhook + Docker + Jenkins CI实现持续集成

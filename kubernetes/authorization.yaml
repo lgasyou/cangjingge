@@ -16,6 +16,12 @@ spec:
       containers:
       - name: authorization
         image: lgasyou/cangjingge-authorization:0.1.0
+        env:
+          - name: APP_OPTS
+            valueFrom:
+              configMapKeyRef:
+                key: default-zone
+                name: eureka-server-configmap
         resources:
           limits:
             memory: "512Mi"

@@ -2,8 +2,24 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: eureka-server-configmap
+  namespace: cangjingge
 data:
-  default-zone: --eureka.client.serviceUrl.defaultZone=http://eureka-server-0.${APP_NAME}/eureka/
+  default-zone: --eureka.client.serviceUrl.defaultZone=http://eureka-server-0.eureka-server.cangjingge.svc.cluster.local/eureka/ --eureka.instance.prefer-ip-address=true
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: eureka-server
+  namespace: cangjingge
+  labels:
+    app: eureka-server
+spec:
+  ports:
+    - port: 80
+      name: eureka
+  clusterIP: None
+  selector:
+    app: eureka-server
 ---
 apiVersion: apps/v1
 kind: StatefulSet

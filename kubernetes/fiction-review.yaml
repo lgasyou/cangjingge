@@ -1,21 +1,27 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: fiction
+  name: fiction-review
   namespace: cangjingge
 spec:
   selector:
     matchLabels:
-      app: fiction
+      app: fiction-review
   template:
     metadata:
       labels:
-        app: fiction
+        app: fiction-review
     spec:
       restartPolicy: Always
       containers:
-      - name: fiction
-        image: lgasyou/cangjingge-fiction:0.1.0
+      - name: fiction-review
+        image: lgasyou/cangjingge-fiction-review:0.1.0
+        env:
+          - name: APP_OPTS
+            valueFrom:
+              configMapKeyRef:
+                key: default-zone
+                name: eureka-server-configmap
         resources:
           limits:
             memory: "512Mi"

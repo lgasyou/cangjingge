@@ -1,21 +1,27 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: zuul-gateway
+  name: fiction
   namespace: cangjingge
 spec:
   selector:
     matchLabels:
-      app: zuul-gateway
+      app: fiction
   template:
     metadata:
       labels:
-        app: zuul-gateway
+        app: fiction
     spec:
       restartPolicy: Always
       containers:
-      - name: zuul-gateway
-        image: lgasyou/cangjingge-zuul-gateway:0.1.0
+      - name: fiction
+        image: lgasyou/cangjingge-fiction:0.1.0
+        env:
+          - name: APP_OPTS
+            valueFrom:
+              configMapKeyRef:
+                key: default-zone
+                name: eureka-server-configmap
         resources:
           limits:
             memory: "512Mi"

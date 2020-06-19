@@ -13,6 +13,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
+        <common.version>1.0.0</common.version>
         <springCloudDependencies.version>Hoxton.SR5</springCloudDependencies.version>
         <springBootDependencies.version>2.2.8.RELEASE</springBootDependencies.version>
         <junit.version>4.13</junit.version>
@@ -45,6 +46,11 @@
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>cn.edu.bit</groupId>
+                <artifactId>cangjingge-common</artifactId>
+                <version>${common.version}</version>
+            </dependency>
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
@@ -124,14 +130,14 @@
     </build>
 
     <modules>
-        <module>eureka-server</module>
-        <module>zuul-gateway</module>
-        <module>common</module>
-        <module>hystrix-dashboard</module>
-        <module>fiction</module>
-        <module>authorization</module>
-        <module>user</module>
-        <module>fiction-review</module>
+        <module>cangjingge-eureka-server</module>
+        <module>cangjingge-zuul-gateway</module>
+        <module>cangjingge-common</module>
+        <module>cangjingge-hystrix-dashboard</module>
+        <module>cangjingge-fiction</module>
+        <module>cangjingge-authorization</module>
+        <module>cangjingge-user</module>
+        <module>cangjingge-fiction-review</module>
     </modules>
 
 </project>

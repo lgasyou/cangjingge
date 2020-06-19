@@ -6,25 +6,31 @@ set -o pipefail
 
 readonly MVN_OPTS="-DskipTests -Pproduct"
 
-readonly SUBMODULES=(authorization eureka-server fiction fiction-review hystrix-dashboard user zuul-gateway)
+readonly SUBMODULES=(
+  cangjingge-authorization
+  cangjingge-eureka-server
+  cangjingge-fiction
+  cangjingge-fiction-review
+  cangjingge-hystrix-dashboard
+  cangjingge-user
+  cangjingge-zuul-gateway
+)
 readonly BASE_DIR=$(pwd)
-readonly IMAGE_PREFIX="lgasyou/cangjingge-"
+readonly IMAGE_PREFIX="lgasyou"
 
 tag=""
+full_image_name=""
 
 function build::package-and-build-image() {
   mvn "${MVN_OPTS}" clean package spring-boot:repackage dockerfile:build
 }
 
-function build::install-common-module() {
-    cd common
-    mvn "${MVN_OPTS}" clean install
-    cd "${BASE_DIR}"
+function build::install-modules() {
+  mvn "${MVN_OPTS}" clean install
 }
 
 function build::build-all-image() {
-  echo "Installing module common..."
-  build::install-common-module
+  build::install-modules
 
   for module in ${SUBMODULES[*]}; do
     echo "Building image of module ${module}..."
@@ -35,18 +41,16 @@ function build::build-all-image() {
 }
 
 function deliver::deliver() {
-  local image_name=$1
-  local tag=$2
-   docker push "${image_name}:${tag}"
+   docker push "${full_image_name}"
 }
 
 function deliver::deliver-all() {
   for module in ${SUBMODULES[*]}; do
     cd "${module}"
-    local image_name="${IMAGE_PREFIX}${module}"
     util::get-project-version
-    echo "Pushing image ${image_name}:${tag}"
-    deliver::deliver "${image_name}" "${tag:-latest}"
+    full_image_name="${IMAGE_PREFIX}/${module}:${tag}"
+    echo "Pushing image ${full_image_name}"
+    deliver::deliver
     cd "${BASE_DIR}"
   done
 }

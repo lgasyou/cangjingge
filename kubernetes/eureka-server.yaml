@@ -41,7 +41,7 @@ spec:
       restartPolicy: Always
       containers:
       - name: eureka-server
-        image: lgasyou/cangjingge-eureka-server:0.1.0
+        image: lgasyou/cangjingge-eureka-server:0.1.1
         env:
           - name: APP_OPTS
             valueFrom:

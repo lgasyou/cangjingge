@@ -29,7 +29,7 @@ spec:
       restartPolicy: Always
       containers:
       - name: zuul-gateway
-        image: lgasyou/cangjingge-zuul-gateway:0.1.0
+        image: lgasyou/cangjingge-zuul-gateway:0.1.1
         env:
           - name: APP_OPTS
             valueFrom:

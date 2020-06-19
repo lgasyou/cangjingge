@@ -15,7 +15,7 @@ spec:
       restartPolicy: Always
       containers:
       - name: hystrix-dashboard
-        image: lgasyou/cangjingge-hystrix-dashboard:v1.0
+        image: lgasyou/cangjingge-hystrix-dashboard:0.1.0
         resources:
           limits:
             memory: "512Mi"

@@ -15,7 +15,7 @@ spec:
       restartPolicy: Always
       containers:
       - name: fiction
-        image: lgasyou/cangjingge-fiction:v1.0
+        image: lgasyou/cangjingge-fiction:0.1.0
         resources:
           limits:
             memory: "512Mi"

@@ -15,7 +15,7 @@ spec:
       restartPolicy: Always
       containers:
       - name: authorization
-        image: lgasyou/cangjingge-authorization:v1.0
+        image: lgasyou/cangjingge-authorization:0.1.0
         resources:
           limits:
             memory: "512Mi"

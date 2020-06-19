@@ -41,7 +41,7 @@ function build::build-all-image() {
     full_image_name="${IMAGE_PREFIX}/${module}:${tag}"
     util::try-pull-image
 
-    # Only if image not exists we start building it.
+    # Only if image not exists should we start building it.
     util::has-newest-image-existed "${IMAGE_PREFIX}/${module}"
     if [[ -z ${newest_image_existed} ]]; then
       echo "Building image of module ${module}..."

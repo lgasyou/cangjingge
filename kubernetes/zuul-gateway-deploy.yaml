@@ -15,7 +15,7 @@ spec:
       restartPolicy: Always
       containers:
       - name: zuul-gateway
-        image: lgasyou/cangjingge-zuul-gateway:v1.0
+        image: lgasyou/cangjingge-zuul-gateway:0.1.0
         resources:
           limits:
             memory: "512Mi"

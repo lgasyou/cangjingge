@@ -15,7 +15,7 @@ spec:
       restartPolicy: Always
       containers:
       - name: user
-        image: lgasyou/cangjingge-user:v1.0
+        image: lgasyou/cangjingge-user:0.1.0
         resources:
           limits:
             memory: "512Mi"

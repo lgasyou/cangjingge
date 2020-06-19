@@ -10,9 +10,12 @@ pipeline {
         stage('Prerequisites') {
             steps {
                 sh './jenkins/scripts/init.sh'
+                withCredentials([usernamePassword(credentialsId: 'docker_hub', passwordVariable: 'password', usernameVariable: 'username')]) {
+                    sh 'docker login -u $username -p $password'
+                }
             }
         }
-        stage('Build') { 
+        stage('Build') {
             steps {
                 sh './jenkins/scripts/build.sh' 
             }

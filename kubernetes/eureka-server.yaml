@@ -4,7 +4,7 @@ metadata:
   name: eureka-server-configmap
   namespace: cangjingge
 data:
-  default-zone: --eureka.client.serviceUrl.defaultZone=http://eureka-server-0.eureka-server.cangjingge.svc.cluster.local/eureka/ --eureka.instance.prefer-ip-address=true
+  default-zone: --eureka.client.serviceUrl.defaultZone=http://eureka-server-0.eureka-server.cangjingge.svc.cluster.local/eureka/
 ---
 apiVersion: v1
 kind: Service

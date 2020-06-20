@@ -27,6 +27,7 @@ function init::install_docker_ce() {
   curl -fsSLO "https://download.docker.com/linux/static/stable/x86_64/docker-${DOCKER_CE_VERSION}".tgz
   tar xzvf docker-"${DOCKER_CE_VERSION}".tgz --strip 1 -C /usr/local/bin docker/docker
   rm docker-"${DOCKER_CE_VERSION}".tgz
+  echo "Docker client installed in /usr/local/bin."
 }
 
 function build::package_and_build_image() {
@@ -38,6 +39,7 @@ function build::install_modules() {
 }
 
 function build::build_all_image() {
+  echo "Installing modules..."
   build::install_modules
 
   for module in ${SUBMODULES[*]}; do
@@ -46,6 +48,7 @@ function build::build_all_image() {
     # Try to pull image first
     util::get_project_version
     full_image_name="${IMAGE_PREFIX}/${module}:${tag}"
+    echo "Current target image is ${full_image_name}"
     util::try_pull_image
 
     # Only if image not exists should we start building it.
@@ -69,7 +72,7 @@ function deliver::deliver_all() {
     cd "${module}"
     util::get_project_version
     full_image_name="${IMAGE_PREFIX}/${module}:${tag}"
-    echo "Pushing image ${full_image_name}"
+    echo "Pushing image ${full_image_name}..."
     deliver::deliver
     cd "${BASE_DIR}"
   done

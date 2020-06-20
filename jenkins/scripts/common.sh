@@ -4,7 +4,7 @@ set -o errexit
 set -o nounset
 set -o pipefail
 
-readonly MVN_OPTS="-DskipTests -Pproduct"
+readonly MVN_OPTS=(-DskipTests -Pproduct)
 
 readonly SUBMODULES=(
   cangjingge-authorization
@@ -31,11 +31,13 @@ function init::install_docker_ce() {
 }
 
 function build::package_and_build_image() {
-  mvn "${MVN_OPTS}" clean package spring-boot:repackage dockerfile:build
+  # shellcheck disable=SC2086
+  mvn ${MVN_OPTS[*]} clean package spring-boot:repackage dockerfile:build
 }
 
 function build::install_modules() {
-  mvn "${MVN_OPTS}" clean install
+  # shellcheck disable=SC2086
+  mvn ${MVN_OPTS[*]} clean install
 }
 
 function build::build_all_image() {

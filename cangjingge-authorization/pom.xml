@@ -11,7 +11,7 @@
     <packaging>jar</packaging>
 
     <artifactId>cangjingge-authorization</artifactId>
-    <version>0.1.2</version>
+    <version>0.1.3</version>
 
     <dependencies>
         <dependency>

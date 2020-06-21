@@ -1,7 +1,9 @@
 package cn.edu.bit.cangjingge.fictionreview.service;
 
 import cn.edu.bit.cangjingge.common.entity.FictionReview;
+import cn.edu.bit.cangjingge.common.exception.BusinessException;
 import cn.edu.bit.cangjingge.common.response.Response;
+import cn.edu.bit.cangjingge.common.response.ResponseStatusEnum;
 import cn.edu.bit.cangjingge.common.response.ResponseUtil;
 import cn.edu.bit.cangjingge.fictionreview.FictionReviewDao.FictionReviewDao;
 import org.springframework.stereotype.Service;
@@ -17,8 +19,7 @@ public class FictionReviewServiceImpl {
     public Response getFictionReviewById(Long id) {
         FictionReview fictionReview = fictionReviewDao.getFictionReviewById(id);
         if (fictionReview == null)
-            return ResponseUtil.error(1003, "评论不存在");
-            //throw new BusinessException(ResponseStatusEnum.FICTION_REVIEW_NOT_FOUND);
+            throw new BusinessException(ResponseStatusEnum.FICTION_REVIEW_NOT_FOUND);
         return ResponseUtil.success(fictionReview);
     }
 
@@ -28,19 +29,14 @@ public class FictionReviewServiceImpl {
     }
 
     public Response createFictionReview(Long fictionId, Long userId, Integer rate, String content){
-        FictionReview fictionReview = new FictionReview();
-        fictionReview.setFictionId(fictionId);
-        fictionReview.setUserId(userId);
-        fictionReview.setRate(rate);
-        fictionReview.setContent(content);
-        if (fictionReviewDao.putFictionReview(fictionReview))
-            return ResponseUtil.success(fictionReview);
-        return ResponseUtil.error(1006, "评论失败");
+        if (fictionReviewDao.putFictionReview(fictionId, userId, rate, content))
+            return ResponseUtil.success();
+        throw new BusinessException(ResponseStatusEnum.FICTION_REVIEW_CREATION_FAILURE);
     }
 
     public Response deleteFictionReviewById(Long id) {
         if (fictionReviewDao.deleteFictionReviewById(id)) return ResponseUtil.success();
-        return ResponseUtil.error(1003, "评论不存在");
+        throw new BusinessException(ResponseStatusEnum.FICTION_REVIEW_NOT_FOUND);
     }
 
 }

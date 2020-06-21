@@ -15,7 +15,12 @@ public enum ResponseStatusEnum {
     USER_NOT_FOUND(1000, "User not found"),
     FICTION_NOT_FOUND(1001, "Fiction not found"),
     FICTION_CHAPTER_NOT_FOUND(1002, "Fiction chapter not found"),
-    FICTION_REVIEW_NOT_FOUND(1003, "Fiction review not found");
+    FICTION_REVIEW_NOT_FOUND(1003, "Fiction review not found"),
+    FICTION_CREATION_FAILURE(1004, "Fiction create failure"),
+    FICTION_CHAPTER_CREATION_FAILURE(1005, "Fiction chapter create failure"),
+    FICTION_REVIEW_CREATION_FAILURE(1006, "Fiction review create failure");
+
+
 
     @Getter
     private final int status;

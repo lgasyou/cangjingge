@@ -1,11 +1,8 @@
 package cn.edu.bit.cangjingge.fictionreview.FictionReviewDao;
 
 import cn.edu.bit.cangjingge.common.entity.FictionReview;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Options;
-import org.apache.ibatis.annotations.Select;
-import org.mapstruct.Mapper;
+import org.apache.ibatis.annotations.*;
+
 
 import java.util.List;
 
@@ -19,9 +16,9 @@ public interface FictionReviewDao {
     List<FictionReview> getFictionReviewByFictionId(Long fictionId);
 
     @Insert(value = "insert into review(fictionId, userId, rate, content) " +
-            "values(#{review.getFictionId()},#{review.getUserId()},#{review.getRateId()},#{review.getContentId()})")
+            "values(#{fictionId},#{userId},#{rate},#{content})")
     @Options(useGeneratedKeys = true, keyProperty = "id")
-    boolean putFictionReview(FictionReview review);
+    boolean putFictionReview(Long fictionId, Long userId, Integer rate, String content);
 
     @Delete(value = "delete from review where id=#{id}")
     boolean deleteFictionReviewById(Long id);

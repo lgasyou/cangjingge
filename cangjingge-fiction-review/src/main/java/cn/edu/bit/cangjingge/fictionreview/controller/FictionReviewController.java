@@ -32,7 +32,7 @@ public class FictionReviewController {
     }
 
     @ApiOperation("新建书评")
-    @PostMapping("/fiction/{fictionId}&&{userId}")
+    @PostMapping("/{fictionId}/user/{userId}")
     public Response createReview(
             @PathVariable("fictionId") final Long fictionId,
             @PathVariable("userId") final Long userId,

@@ -16,25 +16,42 @@ public interface FictionDao {
     Fiction getFictionById(Long id);
 
     @Insert(value = "insert into fiction(authorId,title,description,createTimestamp,modifiedTimestamp) " +
-            "value(#{fiction.getTitle()},#{fiction.getDescription()},#{fiction.getCreateTimestamp()},#{fiction.getModifiedTimestamp()})")
+            "values(#{authorId},#{title},#{description},#{createTimestamp},#{modifiedTimestamp})")
     @Options(useGeneratedKeys=true, keyColumn="id")
-    boolean putFiction(Fiction fiction);
+    boolean saveFiction(
+            @Param("authorId")Long authorId,
+            @Param("title")String title,
+            @Param("description")String description,
+            @Param("createTimestamp")Date createTimestamp,
+            @Param("modifiedTimestamp")Date modifiedTimestamp);
 
     @Select(value = "select * from chapter where id=#{chapterId} and fictionId=#{fictionId}")
-    FictionChapter getFictionChapterByChapterIdAndFictionId(Long chapterId, Long fictionId);
+    FictionChapter getFictionChapterByChapterIdAndFictionId(
+            @Param("chapterId")Long chapterId,
+            @Param("fictionId")Long fictionId);
 
     @Update(value = "update fiction set modifiedTimestamp=#{modifiedTimestamp} where id=#{id}")
-    void updateFictionById(Date modifiedTimestamp, Long id);
+    void updateFictionById(
+            @Param("modifiedTimestamp")Date modifiedTimestamp,
+            @Param("id")Long id);
 
     @Select(value = "select chapterId, title from chapter where fictionId=#{fictionId}")
     List<FictionChapter> getFictionChapterByFictionId(Long fictionId);
 
     @Insert(value = "insert into chapter(chapterId, fictionId, title, content) " +
-            "value(#{chapter.getChapterId()},#{chapter.getFictionId()},#{chapter.getTitle()},#{chapter.getContent()})")
+            "values(#{chapterId},#{fictionId},#{title},#{content})")
     @Options(useGeneratedKeys = true, keyColumn = "id")
-    boolean putFictionChapter(FictionChapter chapter);
+    boolean saveFictionChapter(
+            @Param("chapterId")Long chapterId,
+            @Param("fictionId")Long fictionId,
+            @Param("title")String title,
+            @Param("content")String content);
 
-    @Update(value = "update chapter set title=#{chapter.title}, content=#{chapter.content} " +
-            "where fictionId=#{chapter.getFictionId} and chapterId=#{chapter.getChapterId}")
-    boolean updateFictionChapter(FictionChapter chapter);
+    @Update(value = "update chapter set title=#{title}, content=#{content} " +
+            "where fictionId=#{fictionId} and chapterId=#{chapterId}")
+    boolean updateFictionChapter(
+            @Param("fictionId")Long fictionId,
+            @Param("chapterId")Long chapterId,
+            @Param("title")String title,
+            @Param("content")String content);
 }

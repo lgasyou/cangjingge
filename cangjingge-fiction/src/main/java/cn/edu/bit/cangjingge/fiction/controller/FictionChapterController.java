@@ -17,7 +17,7 @@ public class FictionChapterController {
 
     @ApiOperation("使用小说的ID以及章节的ID获取章节")
     @GetMapping("/{fictionId}/chapters/{chapterId}")
-    public Response<FictionChapter> getChapter(
+    public Response getChapter(
             @PathVariable("fictionId") final Long fictionId,
             @PathVariable("chapterId") final Long chapterId
     ) {
@@ -29,7 +29,7 @@ public class FictionChapterController {
      */
     @ApiOperation("更新小说章节的标题，内容")
     @PutMapping("/{fictionId}/chapters/{chapterId}")
-    public Response<FictionChapter> updateChapter(
+    public Response updateChapter(
             @PathVariable("fictionId") final Long fictionId,
             @PathVariable("chapterId") final Long chapterId,
             final String title,
@@ -51,7 +51,7 @@ public class FictionChapterController {
      */
     @ApiOperation("为小说ID创建小说章节")
     @PostMapping("/{fictionId}/chapters")
-    public Response<FictionChapter> createChapter(
+    public Response createChapter(
             @PathVariable("fictionId") final Long fictionId,
             final String title,
             final String content

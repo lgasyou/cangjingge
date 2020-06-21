@@ -7,7 +7,7 @@ create table if not exists `fiction`(
     `description` varchar(1000) default null comment '简介',
     `createTimestamp` date default null comment '起始日期',
     `modifiedTimestamp` date default null comment '上次修改时间',
-    PRIMARY KEY (`id`)
+    primary key (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 create table if not exists `chapter`(
@@ -15,7 +15,8 @@ create table if not exists `chapter`(
     `chapterId` bigint(255) not null comment '章节id',
     `fictionId` bigint(255) not null comment '小说id',
     `title` varchar(64) not null comment '标题',
-    `content` longtext default null comment '小说内容'
+    `content` longtext default null comment '小说内容',
+    primary key (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 

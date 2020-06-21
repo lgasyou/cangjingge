@@ -14,6 +14,9 @@ public class FictionReview {
     @ApiModelProperty("用户ID")
     private Long userId;
 
+    @ApiModelProperty("评论小说ID")
+    private Long fictionId;
+
     @ApiModelProperty("评分")
     private Integer rate;
 

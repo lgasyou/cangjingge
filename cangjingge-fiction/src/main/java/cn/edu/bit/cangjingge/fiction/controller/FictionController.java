@@ -6,14 +6,12 @@ import cn.edu.bit.cangjingge.common.response.Response;
 import cn.edu.bit.cangjingge.common.response.ResponseUtil;
 import cn.edu.bit.cangjingge.fiction.service.FictionServiceImpl;
 import io.swagger.annotations.ApiOperation;
-import org.apache.commons.lang.NotImplementedException;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -39,7 +37,7 @@ public class FictionController {
      */
     @ApiOperation("使用ID对小说进行精确内容获取")
     @GetMapping("/{id}")
-    public Response<Fiction> getById(
+    public Response getById(
             @PathVariable("id") final Long id
     ) {
         return fictionService.getFictionById(id);
@@ -50,7 +48,7 @@ public class FictionController {
      */
     @ApiOperation("新建一个小说的元数据")
     @PostMapping("/")
-    public Response<Fiction> createFiction(
+    public Response createFiction(
             final Long authorId,
             final String title,
             final String description

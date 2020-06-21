@@ -26,24 +26,28 @@ public class FictionServiceImpl {
         return ResponseUtil.success(fictionDao.getFictionByTitle(title));
     }
 
-    public Response<Fiction> getFictionById(Long id) {
+    public Response getFictionById(Long id) {
         Fiction fiction = fictionDao.getFictionById(id);
-        if (fiction == null) throw new BusinessException(ResponseStatusEnum.FICTION_NOT_FOUND);
-        else return ResponseUtil.success(fiction);
+        if (fiction == null)
+            return ResponseUtil.error(1000, "小说不存在");
+            //throw new BusinessException(ResponseStatusEnum.FICTION_NOT_FOUND);
+        return ResponseUtil.success(fiction);
     }
 
-    public Response<Fiction> createFiction(Long authorId, String title, String description) {
+    public Response createFiction(Long authorId, String title, String description) {
         Fiction fiction = new Fiction();
         fiction.setAuthorId(authorId);
         fiction.setTitle(title);
         fiction.setDescription(description);
         fiction.setCreateTimestamp(new Date());
         fiction.setModifiedTimestamp(new Date());
-        if (fictionDao.putFiction(fiction)) return ResponseUtil.success(fiction);
-       throw new BusinessException(ResponseStatusEnum.FICTION_CREATION_FAILURE);
+        if (fictionDao.putFiction(fiction))
+            return ResponseUtil.success(fiction);
+            //throw new BusinessException(ResponseStatusEnum.FICTION_CREATION_FAILURE);
+        return ResponseUtil.error(1004, "小说创建失败");
     }
 
-    public Response<FictionChapter> createFictionChapter(Long fictionId, String title, String content) {
+    public Response createFictionChapter(Long fictionId, String title, String content) {
         List<FictionChapter> fictionChapters = fictionDao.getFictionChapterByFictionId(fictionId);
         long chapterId = fictionChapters.size() + 1;
         FictionChapter fictionChapter = new FictionChapter();
@@ -51,15 +55,20 @@ public class FictionServiceImpl {
         fictionChapter.setChapterId(chapterId);
         fictionChapter.setTitle(title);
         fictionChapter.setContent(content);
-        if (fictionDao.putFictionChapter(fictionChapter)) return ResponseUtil.success(fictionChapter);
-        throw new BusinessException(ResponseStatusEnum.FICTION_CHAPTER_CREATION_FAILURE);
+        if (fictionDao.putFictionChapter(fictionChapter))
+            return ResponseUtil.success(fictionChapter);
+            //throw new BusinessException(ResponseStatusEnum.FICTION_CHAPTER_CREATION_FAILURE);
+        return ResponseUtil.error(1005, "小说章节创建失败");
     }
 
-    public Response<FictionChapter> getFictionChapterByFictionIdAndChapterId(Long fictionId, Long chapterId) {
-        return ResponseUtil.success(fictionDao.getFictionChapterByChapterIdAndFictionId(chapterId, fictionId));
+    public Response getFictionChapterByFictionIdAndChapterId(Long fictionId, Long chapterId) {
+        FictionChapter fictionChapter = fictionDao.getFictionChapterByChapterIdAndFictionId(chapterId, fictionId);
+        if (fictionChapter != null)
+            return ResponseUtil.success(fictionChapter);
+        return ResponseUtil.error(1007, "章节不存在");
     }
 
-    public Response<FictionChapter> updateFictionChapter(Long fictionId, Long chapterId, String title, String content) {
+    public Response updateFictionChapter(Long fictionId, Long chapterId, String title, String content) {
         FictionChapter fictionChapter = new FictionChapter();
         fictionChapter.setTitle(title);
         fictionChapter.setContent(content);
@@ -67,9 +76,11 @@ public class FictionServiceImpl {
         fictionChapter.setChapterId(chapterId);
         if (fictionDao.updateFictionChapter(fictionChapter)){
             fictionDao.updateFictionById(new Date(), fictionId);
-            return ResponseUtil.success(fictionChapter);
+            return ResponseUtil.success();
+        } else {
+            return ResponseUtil.error(1001 ,"更新失败");
+            //throw new BusinessException(ResponseStatusEnum.FICTION_NOT_FOUND);
         }
-        throw new BusinessException(ResponseStatusEnum.FICTION_NOT_FOUND);
     }
 
     public Response<List<FictionChapter>> getChapterInfoByFictionId(Long fictionId) {

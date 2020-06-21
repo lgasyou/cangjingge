@@ -17,8 +17,12 @@ public interface FictionReviewDao {
 
     @Insert(value = "insert into review(fictionId, userId, rate, content) " +
             "values(#{fictionId},#{userId},#{rate},#{content})")
-    @Options(useGeneratedKeys = true, keyProperty = "id")
-    boolean putFictionReview(Long fictionId, Long userId, Integer rate, String content);
+    @Options(useGeneratedKeys = true, keyColumn = "id")
+    boolean putFictionReview(
+            @Param("fictionId")Long fictionId,
+            @Param("userId")Long userId,
+            @Param("rate")Integer rate,
+            @Param("content")String content);
 
     @Delete(value = "delete from review where id=#{id}")
     boolean deleteFictionReviewById(Long id);

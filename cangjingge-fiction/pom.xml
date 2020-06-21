@@ -39,7 +39,11 @@
             <artifactId>spring-security-test</artifactId>
             <scope>test</scope>
         </dependency>
-<!--        <dependency>-->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
+        <!--        <dependency>-->
 <!--            <groupId>org.springframework.security.oauth.boot</groupId>-->
 <!--            <artifactId>spring-security-oauth2-autoconfigure</artifactId>-->
 <!--        </dependency>-->
@@ -54,6 +58,11 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.mybatis.spring.boot</groupId>
+            <artifactId>mybatis-spring-boot-starter</artifactId>
+            <version>2.1.2</version>
         </dependency>
     </dependencies>
 
@@ -73,6 +82,8 @@
                     <tag>${project.version}</tag>
                 </configuration>
             </plugin>
+
+
         </plugins>
     </build>
 

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -29,7 +30,7 @@ public class FictionController {
     public Response<List<Fiction>> searchByTitle(
             final String title
     ) {
-        throw new NotImplementedException();
+        return fictionService.getFictionByTitle(title);
     }
 
     /**
@@ -41,7 +42,7 @@ public class FictionController {
     public Response<Fiction> getById(
             @PathVariable("id") final Long id
     ) {
-        throw new NotImplementedException();
+        return fictionService.getFictionById(id);
     }
 
     /**
@@ -54,7 +55,7 @@ public class FictionController {
             final String title,
             final String description
     ) {
-        throw new NotImplementedException();
+        return fictionService.createFiction(authorId, title, description);
     }
 
     @GetMapping("/hello-error")
@@ -66,5 +67,6 @@ public class FictionController {
     public Response<Integer> hello() {
         return ResponseUtil.success(fictionService.hello());
     }
+
 
 }

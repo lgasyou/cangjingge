@@ -8,8 +8,11 @@ import lombok.Data;
 @Data
 public class FictionChapter {
 
-    @ApiModelProperty("章节ID")
+    @ApiModelProperty("ID")
     private Long id;
+
+    @ApiModelProperty("章节ID")
+    private Long chapterId;
 
     @ApiModelProperty("小说ID")
     private Long fictionId;

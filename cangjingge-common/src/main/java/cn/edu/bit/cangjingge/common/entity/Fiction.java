@@ -13,6 +13,9 @@ public class Fiction {
     @ApiModelProperty("小说ID")
     private Long id;
 
+    @ApiModelProperty("作者id")
+    private Long authorId;
+
     @ApiModelProperty("标题")
     private String title;
 

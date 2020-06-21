@@ -2,14 +2,18 @@ package cn.edu.bit.cangjingge.fiction.controller;
 
 import cn.edu.bit.cangjingge.common.entity.FictionChapter;
 import cn.edu.bit.cangjingge.common.response.Response;
+import cn.edu.bit.cangjingge.fiction.service.FictionServiceImpl;
 import io.swagger.annotations.ApiOperation;
-import org.apache.commons.lang.NotImplementedException;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 @RestController
 public class FictionChapterController {
+
+    @Resource
+    private FictionServiceImpl fictionService;
 
     @ApiOperation("使用小说的ID以及章节的ID获取章节")
     @GetMapping("/{fictionId}/chapters/{chapterId}")
@@ -17,7 +21,7 @@ public class FictionChapterController {
             @PathVariable("fictionId") final Long fictionId,
             @PathVariable("chapterId") final Long chapterId
     ) {
-        throw new NotImplementedException();
+        return fictionService.getFictionChapterByFictionIdAndChapterId(fictionId, chapterId);
     }
 
     /**
@@ -31,7 +35,7 @@ public class FictionChapterController {
             final String title,
             final String content
     ) {
-        throw new NotImplementedException();
+        return fictionService.updateFictionChapter(fictionId, chapterId, title, content);
     }
 
     @ApiOperation("获取小说的所有章节")
@@ -39,7 +43,7 @@ public class FictionChapterController {
     public Response<List<FictionChapter>> getChapterList(
             @PathVariable("fictionId") final Long fictionId
     ) {
-        throw new NotImplementedException();
+        return fictionService.getChapterInfoByFictionId(fictionId);
     }
 
     /**
@@ -49,9 +53,10 @@ public class FictionChapterController {
     @PostMapping("/{fictionId}/chapters")
     public Response<FictionChapter> createChapter(
             @PathVariable("fictionId") final Long fictionId,
+            final String title,
             final String content
     ) {
-        throw new NotImplementedException();
+        return fictionService.createFictionChapter(fictionId, title, content);
     }
 
 }

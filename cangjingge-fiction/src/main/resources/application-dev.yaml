@@ -1,5 +1,5 @@
 server:
-  port: 10001
+  port: 10002
 
 eureka:
   client:
@@ -10,7 +10,7 @@ spring:
   datasource:
     url: jdbc:mysql://localhost:3306/cangjingge?serverTimezone=GMT%2b8&useUnicode=true&characterEncoding=utf-8
     username: root
-    password: 123456
+    password: root
 
 security:
   oauth2:

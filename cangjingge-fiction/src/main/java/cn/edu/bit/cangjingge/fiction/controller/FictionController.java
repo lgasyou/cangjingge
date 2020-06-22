@@ -3,7 +3,6 @@ package cn.edu.bit.cangjingge.fiction.controller;
 import cn.edu.bit.cangjingge.common.entity.Fiction;
 import cn.edu.bit.cangjingge.common.exception.BusinessException;
 import cn.edu.bit.cangjingge.common.response.Response;
-import cn.edu.bit.cangjingge.common.response.ResponseUtil;
 import cn.edu.bit.cangjingge.fiction.service.FictionServiceImpl;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -54,16 +53,6 @@ public class FictionController {
             final String description
     ) {
         return fictionService.createFiction(authorId, title, description);
-    }
-
-    @GetMapping("/hello-error")
-    public Response<String> helloError() {
-        throw new BusinessException(400, "?");
-    }
-
-    @GetMapping("/hello")
-    public Response<Integer> hello() {
-        return ResponseUtil.success(fictionService.hello());
     }
 
 

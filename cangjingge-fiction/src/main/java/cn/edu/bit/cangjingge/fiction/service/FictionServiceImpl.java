@@ -26,7 +26,7 @@ public class FictionServiceImpl {
         return ResponseUtil.success(fictionDao.getFictionByTitle(title));
     }
 
-    public Response getFictionById(Long id) {
+    public Response<Fiction> getFictionById(Long id) {
         Fiction fiction = fictionDao.getFictionById(id);
         if (fiction == null)
             throw new BusinessException(ResponseStatusEnum.FICTION_NOT_FOUND);
@@ -40,7 +40,7 @@ public class FictionServiceImpl {
     //    throw new BusinessException(ResponseStatusEnum.FICTION_CREATION_FAILURE);
     //}
 
-    public Response createFiction2(Long authorId, String title, String description) {
+    public Response<Fiction> createFiction2(Long authorId, String title, String description) {
         Date date = new Date();
         Fiction fiction = new Fiction();
         fiction.setAuthorId(authorId);
@@ -64,7 +64,7 @@ public class FictionServiceImpl {
     //    throw new BusinessException(ResponseStatusEnum.FICTION_CHAPTER_CREATION_FAILURE);
     //}
 
-    public Response createFictionChapter2(Long fictionId, String title, String content) {
+    public Response<FictionChapter> createFictionChapter2(Long fictionId, String title, String content) {
         Fiction fiction = fictionDao.getFictionById(fictionId);
         if (fiction == null) throw new BusinessException(ResponseStatusEnum.FICTION_NOT_FOUND);
         List<FictionChapter> fictionChapters = fictionDao.getFictionChapterByFictionId(fictionId);
@@ -79,17 +79,17 @@ public class FictionServiceImpl {
         throw new BusinessException(ResponseStatusEnum.FICTION_CHAPTER_CREATION_FAILURE);
     }
 
-    public Response getFictionChapterByFictionIdAndChapterId(Long fictionId, Long chapterId) {
+    public Response<FictionChapter> getFictionChapterByFictionIdAndChapterId(Long fictionId, Long chapterId) {
         FictionChapter fictionChapter = fictionDao.getFictionChapterByChapterIdAndFictionId(chapterId, fictionId);
         if (fictionChapter != null)
             return ResponseUtil.success(fictionChapter);
         throw new BusinessException(ResponseStatusEnum.FICTION_CHAPTER_NOT_FOUND);
     }
 
-    public Response updateFictionChapter(Long fictionId, Long chapterId, String title, String content) {
+    public Response<FictionChapter> updateFictionChapter(Long fictionId, Long chapterId, String title, String content) {
         if (fictionDao.updateFictionChapter(fictionId, chapterId, title, content)){
             fictionDao.updateFictionById(new Date(), fictionId);
-            return ResponseUtil.success(getFictionChapterByFictionIdAndChapterId(fictionId, chapterId));
+            return ResponseUtil.success(getFictionChapterByFictionIdAndChapterId(fictionId, chapterId).getData());
         } else {
             throw new BusinessException(ResponseStatusEnum.FICTION_NOT_FOUND);
         }

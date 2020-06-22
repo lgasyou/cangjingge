@@ -36,7 +36,7 @@ public class FictionController {
      */
     @ApiOperation("使用ID对小说进行精确内容获取")
     @GetMapping("/{id}")
-    public Response getById(
+    public Response<Fiction> getById(
             @PathVariable("id") final Long id
     ) {
         return fictionService.getFictionById(id);
@@ -47,13 +47,12 @@ public class FictionController {
      */
     @ApiOperation("新建一个小说的元数据")
     @PostMapping("/")
-    public Response createFiction(
+    public Response<Fiction> createFiction(
             final Long authorId,
             final String title,
             final String description
     ) {
         return fictionService.createFiction2(authorId, title, description);
     }
-
 
 }

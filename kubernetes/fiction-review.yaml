@@ -15,7 +15,7 @@ spec:
       restartPolicy: Always
       containers:
       - name: fiction-review
-        image: lgasyou/cangjingge-fiction-review:0.1.4
+        image: lgasyou/cangjingge-fiction-review:0.1.5
         env:
           - name: APP_OPTS
             valueFrom:
@@ -121,4 +121,4 @@ data:
     `content` longtext not null comment '评论内容',
     `createTime` date not null comment '评论时间',
     primary key (`id`)
-    ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4;
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

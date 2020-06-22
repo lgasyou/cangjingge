@@ -128,7 +128,7 @@ data:
     use `cangjingge`;
 
     create table if not exists `fiction`(
-    `id` bigint(255) not null comment '主键',
+    `id` bigint(255) not null comment '主键' auto_increment,
     `authorId` bigint(255) not null comment '作者id',
     `title` varchar(64) not null comment '小说名',
     `description` varchar(1000) default null comment '简介',
@@ -138,7 +138,7 @@ data:
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
     create table if not exists `chapter`(
-    `id` bigint(255) not null comment '主键',
+    `id` bigint(255) not null comment '主键' auto_increment,
     `chapterId` bigint(255) not null comment '章节id',
     `fictionId` bigint(255) not null comment '小说id',
     `title` varchar(64) not null comment '标题',

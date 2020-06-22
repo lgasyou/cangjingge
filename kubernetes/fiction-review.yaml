@@ -128,7 +128,7 @@ data:
     use `cangjingge`;
 
     create table if not exists `review` (
-    `id` bigint(255) not null comment 'id',
+    `id` bigint(255) not null comment 'id' auto_increment,
     `userId` bigint(255) not null comment '用户id',
     `fictionId` bigint(255) not null comment '小说id',
     `rate` int(2) not null comment '小说评分',

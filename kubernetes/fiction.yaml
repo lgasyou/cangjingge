@@ -45,3 +45,103 @@ spec:
           periodSeconds: 5
           timeoutSeconds: 5
           failureThreshold: 3
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: fiction-db
+  namespace: cangjingge
+  labels:
+    app: fiction-db
+spec:
+  ports:
+    - port: 3306
+  clusterIP: None
+  selector:
+    app: fiction-db
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: fiction-db
+  namespace: cangjingge
+spec:
+  serviceName: fiction-db
+  replicas: 1
+  podManagementPolicy: Parallel
+  selector:
+    matchLabels:
+      app: fiction-db
+  template:
+    metadata:
+      labels:
+        app: fiction-db
+    spec:
+      restartPolicy: Always
+      containers:
+        - name: fiction-db
+          image: mariadb:latest
+          resources:
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+            requests:
+              memory: "128Mi"
+              cpu: "50m"
+          ports:
+            - containerPort: 3306
+          readinessProbe:
+            tcpSocket:
+              port: 3306
+            initialDelaySeconds: 20
+            periodSeconds: 5
+            timeoutSeconds: 10
+            failureThreshold: 5
+          livenessProbe:
+            tcpSocket:
+              port: 3306
+            initialDelaySeconds: 60
+            periodSeconds: 5
+            timeoutSeconds: 5
+            failureThreshold: 3
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: cangjingge
+          volumeMounts:
+            - mountPath: /docker-entrypoint-initdb.d/init.sql
+              name: init
+              subPath: init.sql
+      volumes:
+      - name: init
+        configMap:
+          name: fiction-db-cm
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: fiction-db-cm
+  namespace: cangjingge
+data:
+  init.sql: |-
+    create database if not exists `cangjingge`;
+
+    use `cangjingge`;
+
+    create table if not exists `fiction`(
+    `id` bigint(255) not null comment '主键',
+    `authorId` bigint(255) not null comment '作者id',
+    `title` varchar(64) not null comment '小说名',
+    `description` varchar(1000) default null comment '简介',
+    `createTimestamp` date default null comment '起始日期',
+    `modifiedTimestamp` date default null comment '上次修改时间',
+    primary key (`id`)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+    create table if not exists `chapter`(
+    `id` bigint(255) not null comment '主键',
+    `chapterId` bigint(255) not null comment '章节id',
+    `fictionId` bigint(255) not null comment '小说id',
+    `title` varchar(64) not null comment '标题',
+    `content` longtext default null comment '小说内容',
+    primary key (`id`)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

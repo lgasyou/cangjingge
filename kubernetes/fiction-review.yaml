@@ -45,3 +45,93 @@ spec:
           periodSeconds: 5
           timeoutSeconds: 5
           failureThreshold: 3
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: fiction-review-db
+  namespace: cangjingge
+  labels:
+    app: fiction-review-db
+spec:
+  ports:
+    - port: 3306
+  clusterIP: None
+  selector:
+    app: fiction-review-db
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: fiction-review-db
+  namespace: cangjingge
+spec:
+  serviceName: fiction-review-db
+  replicas: 1
+  podManagementPolicy: Parallel
+  selector:
+    matchLabels:
+      app: fiction-review-db
+  template:
+    metadata:
+      labels:
+        app: fiction-review-db
+    spec:
+      restartPolicy: Always
+      containers:
+        - name: fiction-review-db
+          image: mariadb:latest
+          resources:
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+            requests:
+              memory: "128Mi"
+              cpu: "50m"
+          ports:
+            - containerPort: 3306
+          readinessProbe:
+            tcpSocket:
+              port: 3306
+            initialDelaySeconds: 20
+            periodSeconds: 5
+            timeoutSeconds: 10
+            failureThreshold: 5
+          livenessProbe:
+            tcpSocket:
+              port: 3306
+            initialDelaySeconds: 60
+            periodSeconds: 5
+            timeoutSeconds: 5
+            failureThreshold: 3
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: cangjingge
+          volumeMounts:
+            - mountPath: /docker-entrypoint-initdb.d/init.sql
+              name: init
+              subPath: init.sql
+      volumes:
+        - name: init
+          configMap:
+            name: fiction-review-db-cm
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: fiction-review-db-cm
+  namespace: cangjingge
+data:
+  init.sql: |-
+    create database if not exists `cangjingge`;
+
+    use `cangjingge`;
+
+    create table if not exists `review` (
+    `id` bigint(255) not null comment 'id',
+    `userId` bigint(255) not null comment '用户id',
+    `fictionId` bigint(255) not null comment '小说id',
+    `rate` int(2) not null comment '小说评分',
+    `content` longtext not null comment '评论内容',
+    primary key (`id`)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

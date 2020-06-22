@@ -2,6 +2,7 @@ create database if not exists `cangjingge`;
 
 use `cangjingge`;
 
+drop table if exists review;
 create table if not exists `review` (
     `id` bigint(255) not null comment 'id',
     `userId` bigint(255) not null comment '用户id',

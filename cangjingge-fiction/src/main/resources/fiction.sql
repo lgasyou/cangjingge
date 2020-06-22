@@ -1,5 +1,6 @@
 create database if not exists `cangjingge`;
 
+drop table if exists fiction;
 create table if not exists `fiction`(
     `id` bigint(255) not null comment '主键',
     `authorId` bigint(255) not null comment '作者id',
@@ -10,6 +11,7 @@ create table if not exists `fiction`(
     primary key (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+drop table if exists chapter;
 create table if not exists `chapter`(
     `id` bigint(255) not null comment '主键',
     `chapterId` bigint(255) not null comment '章节id',

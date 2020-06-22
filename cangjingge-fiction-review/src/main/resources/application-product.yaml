@@ -10,6 +10,6 @@ spring:
     add-properties: false
 
   datasource:
-    url: jdbc:mysql://localhost:3306/cangjingge?serverTimezone=GMT%2b8&useUnicode=true&characterEncoding=utf-8
+    url: jdbc:mysql://fiction-review-db-0.fiction-review-db.cangjingge.svc.cluster.linc:3306/cangjingge?serverTimezone=GMT%2b8&useUnicode=true&characterEncoding=utf-8
     username: root
-    password: 123456
+    password: cangjingge

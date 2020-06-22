@@ -135,7 +135,7 @@ data:
     `createTimestamp` date default null comment '起始日期',
     `modifiedTimestamp` date default null comment '上次修改时间',
     primary key (`id`)
-    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+    ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4;
 
     create table if not exists `chapter`(
     `id` bigint(255) not null comment '主键' auto_increment,
@@ -144,4 +144,4 @@ data:
     `title` varchar(64) not null comment '标题',
     `content` longtext default null comment '小说内容',
     primary key (`id`)
-    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+    ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4;

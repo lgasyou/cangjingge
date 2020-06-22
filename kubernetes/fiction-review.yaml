@@ -133,5 +133,6 @@ data:
     `fictionId` bigint(255) not null comment '小说id',
     `rate` int(2) not null comment '小说评分',
     `content` longtext not null comment '评论内容',
+    `createTime` date not null comment '评论时间',
     primary key (`id`)
-    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+    ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4;

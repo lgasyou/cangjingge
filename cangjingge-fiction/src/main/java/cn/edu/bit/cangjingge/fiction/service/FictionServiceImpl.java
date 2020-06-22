@@ -33,19 +33,49 @@ public class FictionServiceImpl {
         return ResponseUtil.success(fiction);
     }
 
-    public Response createFiction(Long authorId, String title, String description) {
-        if (fictionDao.saveFiction(authorId, title, description, new Date(), new Date()))
-            return ResponseUtil.success();
+    //public Response createFiction(Long authorId, String title, String description) {
+    //    Date date = new Date();
+    //    if (fictionDao.saveFiction(authorId, title, description, date, date))
+    //        return ResponseUtil.success(fictionDao.getFictionByAuthorIdAndCreateTimestamp(authorId, date));
+    //    throw new BusinessException(ResponseStatusEnum.FICTION_CREATION_FAILURE);
+    //}
+
+    public Response createFiction2(Long authorId, String title, String description) {
+        Date date = new Date();
+        Fiction fiction = new Fiction();
+        fiction.setAuthorId(authorId);
+        fiction.setTitle(title);
+        fiction.setDescription(description);
+        fiction.setCreateTimestamp(date);
+        fiction.setModifiedTimestamp(date);
+        Long res = fictionDao.saveFiction2(fiction);
+        if (res != -1)
+            return ResponseUtil.success(fictionDao.getFictionById(fiction.getId()));
         throw new BusinessException(ResponseStatusEnum.FICTION_CREATION_FAILURE);
     }
 
-    public Response createFictionChapter(Long fictionId, String title, String content) {
+    //public Response createFictionChapter(Long fictionId, String title, String content) {
+    //    Fiction fiction = fictionDao.getFictionById(fictionId);
+    //    if (fiction == null) throw new BusinessException(ResponseStatusEnum.FICTION_NOT_FOUND);
+    //    List<FictionChapter> fictionChapters = fictionDao.getFictionChapterByFictionId(fictionId);
+    //    long chapterId = fictionChapters.size() + 1;
+    //    if (fictionDao.saveFictionChapter(chapterId, fictionId, title, content) != -1)
+    //        return ResponseUtil.success(getFictionChapterByFictionIdAndChapterId(fictionId, chapterId));
+    //    throw new BusinessException(ResponseStatusEnum.FICTION_CHAPTER_CREATION_FAILURE);
+    //}
+
+    public Response createFictionChapter2(Long fictionId, String title, String content) {
         Fiction fiction = fictionDao.getFictionById(fictionId);
         if (fiction == null) throw new BusinessException(ResponseStatusEnum.FICTION_NOT_FOUND);
         List<FictionChapter> fictionChapters = fictionDao.getFictionChapterByFictionId(fictionId);
         long chapterId = fictionChapters.size() + 1;
-        if (fictionDao.saveFictionChapter(chapterId, fictionId, title, content))
-            return ResponseUtil.success();
+        FictionChapter fictionChapter = new FictionChapter();
+        fictionChapter.setFictionId(fictionId);
+        fictionChapter.setChapterId(chapterId);
+        fictionChapter.setTitle(title);
+        fictionChapter.setContent(content);
+        if (fictionDao.saveFictionChapter2(fictionChapter) != -1)
+            return ResponseUtil.success(fictionDao.getFictionChapterById(fictionChapter.getId()));
         throw new BusinessException(ResponseStatusEnum.FICTION_CHAPTER_CREATION_FAILURE);
     }
 
@@ -59,7 +89,7 @@ public class FictionServiceImpl {
     public Response updateFictionChapter(Long fictionId, Long chapterId, String title, String content) {
         if (fictionDao.updateFictionChapter(fictionId, chapterId, title, content)){
             fictionDao.updateFictionById(new Date(), fictionId);
-            return ResponseUtil.success();
+            return ResponseUtil.success(getFictionChapterByFictionIdAndChapterId(fictionId, chapterId));
         } else {
             throw new BusinessException(ResponseStatusEnum.FICTION_NOT_FOUND);
         }

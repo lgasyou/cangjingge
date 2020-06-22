@@ -4,6 +4,8 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import java.util.Date;
+
 @ApiModel("小说书评")
 @Data
 public class FictionReview {
@@ -22,5 +24,8 @@ public class FictionReview {
 
     @ApiModelProperty("内容")
     private String content;
+
+    @ApiModelProperty("评论时间")
+    private Date createTime;
 
 }

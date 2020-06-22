@@ -39,7 +39,7 @@ public class FictionReviewController {
             final Integer rate,
             final String content
     ) {
-        return fictionReviewService.createFictionReview(fictionId, userId, rate, content);
+        return fictionReviewService.createFictionReview2(fictionId, userId, rate, content);
     }
 
     @ApiOperation("删除一个书评")

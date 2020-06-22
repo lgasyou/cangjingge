@@ -56,7 +56,7 @@ public class FictionChapterController {
             final String title,
             final String content
     ) {
-        return fictionService.createFictionChapter(fictionId, title, content);
+        return fictionService.createFictionChapter2(fictionId, title, content);
     }
 
 }

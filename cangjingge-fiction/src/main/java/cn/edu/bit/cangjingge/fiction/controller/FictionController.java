@@ -53,7 +53,7 @@ public class FictionController {
             final String title,
             final String description
     ) {
-        return fictionService.createFiction(authorId, title, description);
+        return fictionService.createFiction2(authorId, title, description);
     }
 
     @GetMapping("/hello-error")

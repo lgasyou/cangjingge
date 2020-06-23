@@ -1,12 +1,12 @@
 package cn.edu.bit.cangjingge.authorization.controller;
 
-import cn.edu.bit.cangjingge.common.entity.UserAuth;
+import cn.edu.bit.cangjingge.authorization.entity.UserAuthInfo;
+import cn.edu.bit.cangjingge.authorization.service.AuthorizationServiceImpl;
 import cn.edu.bit.cangjingge.common.response.Response;
-import cn.edu.bit.cangjingge.common.response.ResponseUnpacker;
+import cn.edu.bit.cangjingge.common.response.ResponseStatusEnum;
 import cn.edu.bit.cangjingge.common.response.ResponseUtil;
-import cn.edu.bit.cangjingge.common.service.FictionService;
+import cn.edu.bit.cangjingge.common.security.RequiresAuthorization;
 import io.swagger.annotations.ApiOperation;
-import org.apache.commons.lang.NotImplementedException;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -18,28 +18,45 @@ import javax.annotation.Resource;
 public class AuthorizationController {
 
     @Resource
-    private FictionService fictionService;
+    AuthorizationServiceImpl authorizationService;
 
     @GetMapping("/hello")
-    public Response<Integer> hello() {
-        Response<Integer> response = fictionService.hello();
-        Integer hello = ResponseUnpacker.unpack(response);
-        return ResponseUtil.success(hello);
+    @RequiresAuthorization
+    public Response<String> hello() {
+        return ResponseUtil.success("Hello, world");
     }
 
-    @ApiOperation("获得AccessToken以及RefreshToken")
+    @GetMapping("/add")
+    public Response<String> add() {
+        authorizationService.createUserAuth("xenon", "123");
+        return ResponseUtil.success();
+    }
+
+    @ApiOperation("获得AccessToken")
     @PostMapping("/token")
-    public Response<UserAuth> getToken(
-            final String email,
+    public Response<UserAuthInfo> getToken(
+            final String username,
             final String password
     ) {
-        throw new NotImplementedException();
+        UserAuthInfo userAuthInfo = authorizationService.loginWithPassword(username, password);
+        return ResponseUtil.success(userAuthInfo);
     }
 
-    @ApiOperation("使用RefreshToken刷新令牌")
+    @ApiOperation("刷新令牌（需要认证）")
     @PutMapping("/token")
-    public Response<UserAuth> updateToken() {
-        throw new NotImplementedException();
+    @RequiresAuthorization
+    public Response<UserAuthInfo> updateToken() {
+        UserAuthInfo userAuthInfo = authorizationService.refreshToken();
+        return ResponseUtil.success(userAuthInfo);
+    }
+
+    @ApiOperation("检查Token是否有效")
+    @GetMapping("/token/validation")
+    public Response<String> checkToken(
+            final String token
+    ) {
+        authorizationService.checkToken(token);
+        return ResponseUtil.success(ResponseStatusEnum.TOKEN_VALID.getReason());
     }
 
 }

@@ -5,6 +5,12 @@ spring:
   application:
     name: authorization
 
+  datasource:
+    driver-class-name: "com.mysql.cj.jdbc.Driver"
+
+  jpa:
+    generate-ddl: true
+
 eureka:
   instance:
     instance-id: authorization

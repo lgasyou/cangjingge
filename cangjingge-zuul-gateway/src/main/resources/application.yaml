@@ -24,3 +24,4 @@ zuul:
       path: /fiction-reviews/**
       serviceId: fiction-review
   ignored-services: "*"
+  sensitive-headers: Cookie,Set-Cookie

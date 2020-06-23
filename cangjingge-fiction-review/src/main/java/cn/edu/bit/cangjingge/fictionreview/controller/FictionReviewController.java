@@ -2,6 +2,7 @@ package cn.edu.bit.cangjingge.fictionreview.controller;
 
 import cn.edu.bit.cangjingge.common.entity.FictionReview;
 import cn.edu.bit.cangjingge.common.response.Response;
+import cn.edu.bit.cangjingge.common.security.RequiresAuthorization;
 import cn.edu.bit.cangjingge.fictionreview.service.FictionReviewServiceImpl;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
@@ -31,8 +32,9 @@ public class FictionReviewController {
         return fictionReviewService.getFictionReviewByFictionId(fictionId);
     }
 
-    @ApiOperation("新建书评")
+    @ApiOperation("新建书评（需要认证）")
     @PostMapping("/{fictionId}/user/{userId}")
+    @RequiresAuthorization
     public Response createReview(
             @PathVariable("fictionId") final Long fictionId,
             @PathVariable("userId") final Long userId,
@@ -42,8 +44,9 @@ public class FictionReviewController {
         return fictionReviewService.createFictionReview2(fictionId, userId, rate, content);
     }
 
-    @ApiOperation("删除一个书评")
+    @ApiOperation("删除一个书评（需要认证）")
     @DeleteMapping("/id/{id}")
+    @RequiresAuthorization
     public Response deleteBookshelfItem(
             @PathVariable("id") final Long id
     ) {

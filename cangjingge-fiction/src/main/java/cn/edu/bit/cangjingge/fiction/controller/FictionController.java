@@ -3,6 +3,7 @@ package cn.edu.bit.cangjingge.fiction.controller;
 import cn.edu.bit.cangjingge.common.entity.Fiction;
 import cn.edu.bit.cangjingge.common.exception.BusinessException;
 import cn.edu.bit.cangjingge.common.response.Response;
+import cn.edu.bit.cangjingge.common.security.RequiresAuthorization;
 import cn.edu.bit.cangjingge.fiction.service.FictionServiceImpl;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -45,8 +46,9 @@ public class FictionController {
     /**
      * @return 创建小说的元数据
      */
-    @ApiOperation("新建一个小说的元数据")
+    @ApiOperation("新建一个小说的元数据（需要认证）")
     @PostMapping("/")
+    @RequiresAuthorization
     public Response<Fiction> createFiction(
             final Long authorId,
             final String title,

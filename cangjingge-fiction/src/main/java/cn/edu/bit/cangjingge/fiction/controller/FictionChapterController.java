@@ -2,6 +2,7 @@ package cn.edu.bit.cangjingge.fiction.controller;
 
 import cn.edu.bit.cangjingge.common.entity.FictionChapter;
 import cn.edu.bit.cangjingge.common.response.Response;
+import cn.edu.bit.cangjingge.common.security.RequiresAuthorization;
 import cn.edu.bit.cangjingge.fiction.service.FictionServiceImpl;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
@@ -27,8 +28,9 @@ public class FictionChapterController {
     /**
      * @return 更新后的章节
      */
-    @ApiOperation("更新小说章节的标题，内容")
+    @ApiOperation("更新小说章节的标题，内容（需要认证）")
     @PutMapping("/{fictionId}/chapters/{chapterId}")
+    @RequiresAuthorization
     public Response<FictionChapter> updateChapter(
             @PathVariable("fictionId") final Long fictionId,
             @PathVariable("chapterId") final Long chapterId,
@@ -49,8 +51,9 @@ public class FictionChapterController {
     /**
      * @return 创建的章节
      */
-    @ApiOperation("为小说ID创建小说章节")
+    @ApiOperation("为小说ID创建小说章节（需要认证）")
     @PostMapping("/{fictionId}/chapters")
+    @RequiresAuthorization
     public Response<FictionChapter> createChapter(
             @PathVariable("fictionId") final Long fictionId,
             final String title,

@@ -20,7 +20,6 @@
         <log4j.version>2.13.3</log4j.version>
         <lombok.version>1.18.12</lombok.version>
         <mysql.version>8.0.11</mysql.version>
-        <oauth2.version>2.3.1.RELEASE</oauth2.version>
         <swagger.verison>2.9.2</swagger.verison>
         <dockerfileMaven.version>1.4.13</dockerfileMaven.version>
         <springBootMaven.version>2.3.1.RELEASE</springBootMaven.version>
@@ -85,11 +84,6 @@
                 <groupId>mysql</groupId>
                 <artifactId>mysql-connector-java</artifactId>
                 <version>${mysql.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework.security.oauth.boot</groupId>
-                <artifactId>spring-security-oauth2-autoconfigure</artifactId>
-                <version>${oauth2.version}</version>
             </dependency>
             <!-- https://mvnrepository.com/artifact/io.springfox/springfox-swagger2 -->
             <dependency>

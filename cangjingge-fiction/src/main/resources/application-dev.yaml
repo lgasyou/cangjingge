@@ -10,16 +10,4 @@ spring:
   datasource:
     url: jdbc:mysql://localhost:3306/cangjingge?serverTimezone=GMT%2b8&useUnicode=true&characterEncoding=utf-8
     username: root
-    password: root
-
-security:
-  oauth2:
-    client:
-      client-id: client
-      client-secret: 123456
-      access-token-uri: http://localhost:11000/oauth/token
-      user-authorization-uri: http://localhost:11000/oauth/authorize
-      scope: read
-      use-current-uri: false
-    resource:
-      user-info-uri: http://localhost:11000/oauth/user
+    password: 123456

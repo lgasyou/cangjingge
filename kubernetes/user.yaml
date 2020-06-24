@@ -15,7 +15,7 @@ spec:
       restartPolicy: Always
       containers:
       - name: user
-        image: lgasyou/cangjingge-user:0.1.6
+        image: lgasyou/cangjingge-user:0.1.7
         env:
           - name: APP_OPTS
             valueFrom:

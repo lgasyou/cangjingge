@@ -15,7 +15,7 @@ spec:
       restartPolicy: Always
       containers:
       - name: authorization
-        image: lgasyou/cangjingge-authorization:0.1.6
+        image: lgasyou/cangjingge-authorization:0.1.7
         env:
           - name: APP_OPTS
             valueFrom:

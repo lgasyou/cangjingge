@@ -16,18 +16,25 @@ import java.util.Date;
 
 public class TokenUtil {
 
-    private static final String CLAIM = "username";
+    private static final String USERNAME_CLAIM = "username";
+    private static final String USER_ROLES = "roles";
 
     /**
      * 生成签名
      * @return 加密的token
      */
-    public static String sign(String username, String secret, Date expiresAt) {
+    public static String sign(
+            String username,
+            String roles,
+            String secret,
+            Date expiresAt
+    ) {
         try {
             Algorithm algorithm = Algorithm.HMAC256(secret);
             // 附带username信息
             return JWT.create()
-                    .withClaim(CLAIM, username)
+                    .withClaim(USERNAME_CLAIM, username)
+                    .withClaim(USER_ROLES, roles)
                     .withExpiresAt(expiresAt)
                     .sign(algorithm);
         } catch (UnsupportedEncodingException e) {
@@ -38,11 +45,17 @@ public class TokenUtil {
     /**
      * 校验token的正确性
      */
-    public static boolean verify(String token, String username, String secret) {
+    public static boolean verify(
+            String token,
+            String username,
+            String roles,
+            String secret
+    ) {
         try {
             Algorithm algorithm = Algorithm.HMAC256(secret);
             JWTVerifier verifier = JWT.require(algorithm)
-                    .withClaim(CLAIM, username)
+                    .withClaim(USERNAME_CLAIM, username)
+                    .withClaim(USER_ROLES, roles)
                     .build();
             verifier.verify(token);
             return true;
@@ -64,13 +77,20 @@ public class TokenUtil {
         return getUsername(token);
     }
 
-    /**
-     * 获取token中包含的用户手机号
-     */
+
     public static String getUsername(String token) {
         try {
             DecodedJWT jwt = JWT.decode(token);
-            return jwt.getClaim(CLAIM).asString();
+            return jwt.getClaim(USERNAME_CLAIM).asString();
+        } catch (JWTDecodeException e) {
+            return null;
+        }
+    }
+
+    public static String[] getUserRoles(String token) {
+        try {
+            DecodedJWT jwt = JWT.decode(token);
+            return jwt.getClaim(USER_ROLES).asString().split(",");
         } catch (JWTDecodeException e) {
             return null;
         }

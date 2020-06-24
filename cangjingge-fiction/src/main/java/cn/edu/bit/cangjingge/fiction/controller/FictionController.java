@@ -46,7 +46,7 @@ public class FictionController {
     /**
      * @return 创建小说的元数据
      */
-    @ApiOperation("新建一个小说的元数据（需要认证）")
+    @ApiOperation("新建一个小说的元数据（需要认证，用户权限及以上）")
     @PostMapping("/")
     @RequiresAuthorization
     public Response<Fiction> createFiction(

@@ -5,9 +5,11 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-// 需要在请求的Headers中带有Authorization用于鉴权
+// 标记需要鉴权的接口
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface RequiresAuthorization {
+
+    String[] value() default {"ROLE_USER"};
 
 }

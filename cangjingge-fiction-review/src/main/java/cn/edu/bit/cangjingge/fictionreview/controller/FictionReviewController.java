@@ -18,7 +18,7 @@ public class FictionReviewController {
 
     @ApiOperation("使用ID获取书评")
     @GetMapping("/id/{id}")
-    public Response getById(
+    public Response<FictionReview> getById(
             @PathVariable("id") final Long id
     ) {
         return fictionReviewService.getFictionReviewById(id);
@@ -32,10 +32,10 @@ public class FictionReviewController {
         return fictionReviewService.getFictionReviewByFictionId(fictionId);
     }
 
-    @ApiOperation("新建书评（需要认证）")
+    @ApiOperation("新建书评（需要认证，用户权限及以上）")
     @PostMapping("/{fictionId}/user/{userId}")
     @RequiresAuthorization
-    public Response createReview(
+    public Response<FictionReview> createReview(
             @PathVariable("fictionId") final Long fictionId,
             @PathVariable("userId") final Long userId,
             final Integer rate,
@@ -44,10 +44,10 @@ public class FictionReviewController {
         return fictionReviewService.createFictionReview2(fictionId, userId, rate, content);
     }
 
-    @ApiOperation("删除一个书评（需要认证）")
+    @ApiOperation("删除一个书评（需要认证，管理员权限）")
     @DeleteMapping("/id/{id}")
-    @RequiresAuthorization
-    public Response deleteBookshelfItem(
+    @RequiresAuthorization({"ROLE_USER", "ROLE_ADMIN"})
+    public Response<FictionReview> deleteBookshelfItem(
             @PathVariable("id") final Long id
     ) {
         return fictionReviewService.deleteFictionReviewById(id);

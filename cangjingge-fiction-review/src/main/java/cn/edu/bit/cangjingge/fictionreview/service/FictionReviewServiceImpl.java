@@ -17,7 +17,7 @@ public class FictionReviewServiceImpl {
     @Resource
     FictionReviewDao fictionReviewDao;
 
-    public Response getFictionReviewById(Long id) {
+    public Response<FictionReview> getFictionReviewById(Long id) {
         FictionReview fictionReview = fictionReviewDao.getFictionReviewById(id);
         if (fictionReview == null)
             throw new BusinessException(ResponseStatusEnum.FICTION_REVIEW_NOT_FOUND);
@@ -36,7 +36,7 @@ public class FictionReviewServiceImpl {
     //    throw new BusinessException(ResponseStatusEnum.FICTION_REVIEW_CREATION_FAILURE);
     //}
 
-    public Response createFictionReview2(Long fictionId, Long userId, Integer rate, String content){
+    public Response<FictionReview> createFictionReview2(Long fictionId, Long userId, Integer rate, String content){
         FictionReview fictionReview = new FictionReview();
         fictionReview.setFictionId(fictionId);
         fictionReview.setUserId(userId);
@@ -48,7 +48,7 @@ public class FictionReviewServiceImpl {
         throw new BusinessException(ResponseStatusEnum.FICTION_REVIEW_CREATION_FAILURE);
     }
 
-    public Response deleteFictionReviewById(Long id) {
+    public Response<FictionReview> deleteFictionReviewById(Long id) {
         FictionReview fictionReview = fictionReviewDao.getFictionReviewById(id);
         if (fictionReview != null) {
             fictionReviewDao.deleteFictionReviewById(id);

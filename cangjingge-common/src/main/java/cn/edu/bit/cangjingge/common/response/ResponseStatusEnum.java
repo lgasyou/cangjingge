@@ -2,9 +2,9 @@ package cn.edu.bit.cangjingge.common.response;
 
 import lombok.Getter;
 
+// 本程序中的状态码及其意义
 public enum ResponseStatusEnum {
 
-    // 本程序中出现的代码及其意义
     SUCCESS(200, "success"),
 
     ACCESS_DENIED(401, "Access denied"),

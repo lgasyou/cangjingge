@@ -28,7 +28,7 @@ public class FictionChapterController {
     /**
      * @return 更新后的章节
      */
-    @ApiOperation("更新小说章节的标题，内容（需要认证）")
+    @ApiOperation("更新小说章节的标题，内容（需要认证，用户权限及以上）")
     @PutMapping("/{fictionId}/chapters/{chapterId}")
     @RequiresAuthorization
     public Response<FictionChapter> updateChapter(
@@ -51,7 +51,7 @@ public class FictionChapterController {
     /**
      * @return 创建的章节
      */
-    @ApiOperation("为小说ID创建小说章节（需要认证）")
+    @ApiOperation("为小说ID创建小说章节（需要认证，用户权限及以上）")
     @PostMapping("/{fictionId}/chapters")
     @RequiresAuthorization
     public Response<FictionChapter> createChapter(

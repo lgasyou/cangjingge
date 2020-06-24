@@ -7,10 +7,7 @@ import cn.edu.bit.cangjingge.common.response.ResponseStatusEnum;
 import cn.edu.bit.cangjingge.common.response.ResponseUtil;
 import cn.edu.bit.cangjingge.common.security.RequiresAuthorization;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
@@ -20,29 +17,17 @@ public class AuthorizationController {
     @Resource
     AuthorizationServiceImpl authorizationService;
 
-    @GetMapping("/hello")
-    @RequiresAuthorization
-    public Response<String> hello() {
-        return ResponseUtil.success("Hello, world");
-    }
-
-    @GetMapping("/add")
-    public Response<String> add() {
-        authorizationService.createUserAuth("xenon", "123");
-        return ResponseUtil.success();
-    }
-
-    @ApiOperation("获得AccessToken")
+    @ApiOperation("获得授权信息")
     @PostMapping("/token")
     public Response<UserAuthInfo> getToken(
-            final String username,
-            final String password
+            @RequestParam("username") final String username,
+            @RequestParam("password") final String password
     ) {
         UserAuthInfo userAuthInfo = authorizationService.loginWithPassword(username, password);
         return ResponseUtil.success(userAuthInfo);
     }
 
-    @ApiOperation("刷新令牌（需要认证）")
+    @ApiOperation("刷新令牌（需要认证，用户权限及以上）")
     @PutMapping("/token")
     @RequiresAuthorization
     public Response<UserAuthInfo> updateToken() {
@@ -50,10 +35,10 @@ public class AuthorizationController {
         return ResponseUtil.success(userAuthInfo);
     }
 
-    @ApiOperation("检查Token是否有效")
+    @ApiOperation("检查Token是否有效（内部接口，外部服务无法使用）")
     @GetMapping("/token/validation")
     public Response<String> checkToken(
-            final String token
+            @RequestParam("token") final String token
     ) {
         authorizationService.checkToken(token);
         return ResponseUtil.success(ResponseStatusEnum.TOKEN_VALID.getReason());

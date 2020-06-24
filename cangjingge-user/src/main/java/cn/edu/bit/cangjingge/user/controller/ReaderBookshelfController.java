@@ -13,7 +13,7 @@ import java.util.List;
 @RestController
 public class ReaderBookshelfController {
 
-    @ApiOperation("获得用户书架中的书籍（需要认证）")
+    @ApiOperation("获得用户书架中的书籍（需要认证，用户权限及以上）")
     @GetMapping("/{id}/bookshelf")
     @RequiresAuthorization
     public Response<List<Bookshelf>> getBookshelfById(
@@ -25,7 +25,7 @@ public class ReaderBookshelfController {
     /**
      * @return 创建的书架条目元数据
      */
-    @ApiOperation("为用户添加一个书架小说（需要认证）")
+    @ApiOperation("为用户添加一个书架小说（需要认证，用户权限及以上）")
     @PostMapping("/{id}/bookshelf")
     @RequiresAuthorization
     public Response<Bookshelf> createBookshelfItem(
@@ -35,7 +35,7 @@ public class ReaderBookshelfController {
         throw new NotImplementedException();
     }
 
-    @ApiOperation("删除一个书架条目（需要认证）")
+    @ApiOperation("删除一个书架条目（需要认证，用户权限及以上）")
     @DeleteMapping("/{userId}/bookshelf/{bookshelfId}")
     @RequiresAuthorization
     public Response<String> deleteBookshelfItem(

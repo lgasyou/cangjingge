@@ -114,11 +114,11 @@ data:
     use `cangjingge`;
 
     create table if not exists `review` (
-    `id` bigint(255) not null comment 'id' auto_increment,
-    `userId` bigint(255) not null comment '用户id',
-    `fictionId` bigint(255) not null comment '小说id',
-    `rate` int(2) not null comment '小说评分',
-    `content` longtext not null comment '评论内容',
-    `createTime` date not null comment '评论时间',
+    `id` bigint(255) not null auto_increment,
+    `userId` bigint(255) not null,
+    `fictionId` bigint(255) not null,
+    `rate` int(2) not null,
+    `content` longtext not null,
+    `createTime` date not null,
     primary key (`id`)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

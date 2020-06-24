@@ -17,6 +17,12 @@ public class AuthorizationServiceImpl {
     @Resource
     private UserAuthDao userAuthDao;
 
+    @Resource
+    private TokenCacheService tokenCacheService;
+
+    // 15 days
+    private static final long EXPIRED_TIME_MILLISECONDS = 15 * 24 * 60 * 60 * 1000;
+
     public void createUserAuth(
             final String username,
             final String password
@@ -30,23 +36,7 @@ public class AuthorizationServiceImpl {
     public void checkToken(
             final String token
     ) throws BusinessException {
-        if (token == null) {
-            throw new BusinessException(ResponseStatusEnum.TOKEN_INVALID);
-        }
-        String phoneNumber = TokenUtil.getUsername(token);
-        if (phoneNumber == null) {
-            throw new BusinessException(ResponseStatusEnum.TOKEN_INVALID);
-        }
-        UserAuth userAuth = userAuthDao.findUserAuthByUsername(phoneNumber);
-        if (userAuth == null) {
-            throw new BusinessException(ResponseStatusEnum.TOKEN_INVALID);
-        }
-        String roles = userAuth.getRoles();
-        String secret = userAuth.getPassword();
-
-        boolean valid = TokenUtil.verify(token, phoneNumber, roles, secret);
-        boolean expired = userAuth.getExpirationTime().before(new Date());
-        if (!valid || expired) {
+        if (token == null || !tokenCacheService.contains(token)) {
             throw new BusinessException(ResponseStatusEnum.TOKEN_INVALID);
         }
     }
@@ -57,11 +47,10 @@ public class AuthorizationServiceImpl {
         String username = userAuth.getUsername();
         String secret = userAuth.getPassword();
         String roles = userAuth.getRoles();
-        Date expiresAt = new Date(System.currentTimeMillis() + 1000 * 15*24*60*60);
+        Date expiresAt = new Date(System.currentTimeMillis() + EXPIRED_TIME_MILLISECONDS);
         String token = TokenUtil.sign(username, roles, secret, expiresAt);
 
-        userAuth.setExpirationTime(expiresAt);
-        userAuthDao.save(userAuth);
+        tokenCacheService.setString(token, username, EXPIRED_TIME_MILLISECONDS);
 
         String[] roleList = roles.split(",");
         return new UserAuthInfo(token, expiresAt, roleList);

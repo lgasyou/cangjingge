@@ -15,7 +15,7 @@ spec:
       restartPolicy: Always
       containers:
       - name: authorization
-        image: lgasyou/cangjingge-authorization:0.1.3
+        image: lgasyou/cangjingge-authorization:0.1.6
         env:
           - name: APP_OPTS
             valueFrom:
@@ -45,3 +45,85 @@ spec:
           periodSeconds: 5
           timeoutSeconds: 5
           failureThreshold: 3
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: authorization-db
+  namespace: cangjingge
+  labels:
+    app: authorization-db
+spec:
+  ports:
+    - port: 3306
+  clusterIP: None
+  selector:
+    app: authorization-db
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: authorization-db
+  namespace: cangjingge
+spec:
+  serviceName: authorization-db
+  replicas: 1
+  podManagementPolicy: Parallel
+  selector:
+    matchLabels:
+      app: authorization-db
+  template:
+    metadata:
+      labels:
+        app: authorization-db
+    spec:
+      restartPolicy: Always
+      containers:
+        - name: authorization-db
+          image: mariadb:latest
+          resources:
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+            requests:
+              memory: "128Mi"
+              cpu: "50m"
+          ports:
+            - containerPort: 3306
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: cangjingge
+          volumeMounts:
+            - mountPath: /docker-entrypoint-initdb.d/init.sql
+              name: init
+              subPath: init.sql
+      volumes:
+        - name: init
+          configMap:
+            name: authorization-db-cm
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: authorization-db-cm
+  namespace: cangjingge
+data:
+  init.sql: |-
+    create database if not exists `cangjingge`;
+
+    use `cangjingge`;
+
+    create table if not exists `user_auth`(
+    `id` bigint(255) not null auto_increment,
+    `username` varchar(64) not null,
+    `password` varchar(64) not null,
+    `expiration_time` date default null,
+    `roles` varchar(64) not null,
+    primary key (`id`)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+    create table if not exists `hibernate_sequence` (
+        next_val bigint null
+    );
+
+    insert into `hibernate_sequence` (next_val) values (1);

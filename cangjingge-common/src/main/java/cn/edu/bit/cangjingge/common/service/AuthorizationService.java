@@ -11,7 +11,7 @@ public interface AuthorizationService {
 
     @PostMapping("/")
     Response<String> register(
-            @RequestParam("email") final String email,
+            @RequestParam("username") final String username,
             @RequestParam("password") final String password
     );
 

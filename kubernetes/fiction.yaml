@@ -15,7 +15,7 @@ spec:
       restartPolicy: Always
       containers:
       - name: fiction
-        image: lgasyou/cangjingge-fiction:0.1.5
+        image: lgasyou/cangjingge-fiction:0.1.6
         env:
           - name: APP_OPTS
             valueFrom:

@@ -35,6 +35,26 @@ public class AuthorizationController {
         return ResponseUtil.success(userAuthInfo);
     }
 
+    @ApiOperation("重置密码（需要认证，用户权限及以上）")
+    @PutMapping("/password")
+    @RequiresAuthorization
+    public Response<String> resetPassword(
+            @RequestParam("password") String newPassword
+    ) {
+        authorizationService.resetPassword(newPassword);
+        return ResponseUtil.success();
+    }
+
+    @ApiOperation("使用用户名及密码创建安全信息（内部接口，外部服务无法使用）")
+    @PostMapping("/")
+    public Response<String> register(
+            @RequestParam("username") final String username,
+            @RequestParam("password") final String password
+    ) {
+        authorizationService.createUserAuth(username, password);
+        return ResponseUtil.success();
+    }
+
     @ApiOperation("检查Token是否有效（内部接口，外部服务无法使用）")
     @GetMapping("/token/validation")
     public Response<String> checkToken(

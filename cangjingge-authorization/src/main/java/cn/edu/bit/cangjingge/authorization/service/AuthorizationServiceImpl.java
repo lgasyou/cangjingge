@@ -18,11 +18,11 @@ public class AuthorizationServiceImpl {
     private UserAuthDao userAuthDao;
 
     public void createUserAuth(
-            final String phoneNumber,
+            final String username,
             final String password
     ) {
         UserAuth userAuth = new UserAuth();
-        userAuth.setUsername(phoneNumber);
+        userAuth.setUsername(username);
         userAuth.setPassword(password);
         userAuthDao.save(userAuth);
     }
@@ -94,10 +94,10 @@ public class AuthorizationServiceImpl {
     }
 
     public void resetPassword(
-            final String phoneNumber,
             final String newPassword
     ) throws BusinessException {
-        UserAuth userAuth = userAuthDao.findUserAuthByUsername(phoneNumber);
+        String username = TokenUtil.getUsernameFromHeaders();
+        UserAuth userAuth = userAuthDao.findUserAuthByUsername(username);
         if (userAuth == null) {
             throw new BusinessException(ResponseStatusEnum.USER_NOT_FOUND);
         }

@@ -24,7 +24,8 @@ public enum ResponseStatusEnum {
     USER_NOT_FOUND(2001, "User not found"),
     TOKEN_VALID(2002, "Token is valid"),
     TOKEN_INVALID(2003, "Token is invalid"),
-    INCORRECT_USERNAME_OR_PASSWORD(2004, "Incorrect username or password");
+    INCORRECT_USERNAME_OR_PASSWORD(2004, "Incorrect username or password"),
+    USER_ALREADY_EXISTED(2004, "User already existed");
 
     @Getter
     private final int status;

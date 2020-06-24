@@ -25,4 +25,4 @@ zuul:
       serviceId: fiction-review
   ignored-services: "*"
   sensitive-headers: Cookie,Set-Cookie
-  ignored-patterns: /auth/token/validation
+  ignored-patterns: /auth/token/validation,/auth/

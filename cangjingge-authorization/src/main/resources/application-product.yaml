@@ -13,3 +13,6 @@ spring:
     url: jdbc:mysql://authorization-db-0.authorization-db.cangjingge.svc.cluster.linc:3306/cangjingge?serverTimezone=GMT%2b8&useUnicode=true&characterEncoding=utf-8
     username: root
     password: cangjingge
+
+  redis:
+    host: token-redis-0.token-redis.cangjingge.svc.cluster.linc

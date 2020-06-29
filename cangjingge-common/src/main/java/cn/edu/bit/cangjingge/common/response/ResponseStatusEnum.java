@@ -25,7 +25,11 @@ public enum ResponseStatusEnum {
     TOKEN_VALID(2002, "Token is valid"),
     TOKEN_INVALID(2003, "Token is invalid"),
     INCORRECT_USERNAME_OR_PASSWORD(2004, "Incorrect username or password"),
-    USER_ALREADY_EXISTED(2004, "User already existed");
+    USER_ALREADY_EXISTED(2004, "User already existed"),
+
+    //Bookshelf
+    BOOKSHELF_NOT_FOUND(3001,"Bookshelf not found"),
+    BOOKSHELF_CREATION_FAILURE(3002,"Bookshelf create failure");
 
     @Getter
     private final int status;

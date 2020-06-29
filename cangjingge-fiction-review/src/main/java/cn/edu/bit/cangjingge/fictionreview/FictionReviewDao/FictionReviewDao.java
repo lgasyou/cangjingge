@@ -12,7 +12,7 @@ public interface FictionReviewDao {
     FictionReview getFictionReviewById(Long id);
 
     @Select(value = "select * from review where fictionId=#{fictionId}")
-    List<FictionReview> getFictionReviewByFictionId(Long fictionId);
+    List<FictionReview>getFictionReviewByFictionId(Long fictionId);
 
     //@Insert(value = "insert into review(fictionId, userId, rate, content, time) " +
     //        "values(#{fictionId},#{userId},#{rate},#{content},#{time})")

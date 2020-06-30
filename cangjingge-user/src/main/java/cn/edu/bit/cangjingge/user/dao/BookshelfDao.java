@@ -2,7 +2,6 @@ package cn.edu.bit.cangjingge.user.dao;
 
 import cn.edu.bit.cangjingge.common.entity.Bookshelf;
 import org.apache.ibatis.annotations.*;
-import org.mapstruct.Mapper;
 
 import java.util.List;
 

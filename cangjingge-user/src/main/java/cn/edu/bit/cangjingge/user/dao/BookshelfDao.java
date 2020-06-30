@@ -19,7 +19,7 @@ public interface BookshelfDao {
     @Options(useGeneratedKeys = true,keyProperty = "id",keyColumn = "id")
     Long createBookshelf(Bookshelf bookshelf);
 
-    @Delete(value = "delete from bookshelf where id=#{id})")
+    @Delete(value = "delete from bookshelf where id=#{id}")
     Long deleteBookshelfById(Long id);
 
     @Select(value = "select * from bookshelf where userId=#{userId} and fictionId=#{fictionId}")

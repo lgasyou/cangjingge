@@ -11,3 +11,14 @@ spring:
 eureka:
   instance:
     instance-id: user
+
+sms:
+  template-code: SMS_136160460
+  random-code-bound: 10000
+  retry-seconds: 30
+  expiration-seconds: 1800
+
+aliyun:
+  access-key:
+    id: id
+    secret: secret

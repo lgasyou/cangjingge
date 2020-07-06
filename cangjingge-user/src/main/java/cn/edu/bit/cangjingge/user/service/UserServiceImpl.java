@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
 
 @Service
-public class UserService {
+public class UserServiceImpl {
 
     @Resource
     private UserDao userDao;

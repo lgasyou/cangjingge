@@ -1,0 +1,33 @@
+{
+  "properties": [
+    {
+      "name": "sms.retry-seconds",
+      "type": "java.lang.Integer",
+      "description": "Description for sms.retry-seconds."
+    },
+    {
+      "name": "sms.template-code",
+      "type": "java.lang.String",
+      "description": "Description for sms.template-code."
+    },
+    {
+      "name": "sms.random-code-bound",
+      "type": "java.lang.Integer",
+      "description": "Description for sms.random-code-bound."
+    },
+    {
+      "name": "sms.expiration-seconds",
+      "type": "java.lang.Integer",
+      "description": "Description for sms.expiration-seconds."
+    },
+    {
+      "name": "aliyun.access-key.id",
+      "type": "java.lang.String",
+      "description": "Description for aliyun.access-key.id."
+    },
+    {
+      "name": "aliyun.access-key.secret",
+      "type": "java.lang.String",
+      "description": "Description for aliyun.access-key.secret."
+    }
+  ] }

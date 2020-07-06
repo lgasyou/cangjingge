@@ -29,7 +29,11 @@ public enum ResponseStatusEnum {
 
     //Bookshelf
     BOOKSHELF_NOT_FOUND(3001,"Bookshelf not found"),
-    BOOKSHELF_CREATION_FAILURE(3002,"Bookshelf create failure");
+    BOOKSHELF_CREATION_FAILURE(3002,"Bookshelf create failure"),
+
+    SMS_CODE_INVALID(4001, "SMS code invalid"),
+    MOBILE_NUMBER_ILLEGAL(4002, "mobile number illegal"),
+    TOO_FREQUENTLY_REQUEST(4003, "Too frequently request");
 
     @Getter
     private final int status;

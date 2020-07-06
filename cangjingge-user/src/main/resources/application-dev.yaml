@@ -12,3 +12,5 @@ spring:
     username: root
     password: 123456
 
+  redis:
+    host: localhost

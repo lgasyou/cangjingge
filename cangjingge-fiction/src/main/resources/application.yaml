@@ -9,3 +9,17 @@ eureka:
   instance:
     instance-id: fiction
 
+aliyun:
+  sts:
+    endpoint: sts.aliyuncs.com
+    read-only-role-arn: read-only
+    write-only-role-arn: write-only
+
+  oss:
+    endpoint: oss-cn-beijing.aliyuncs.com
+    bucket-name: name
+    expiration-seconds: 3600
+
+  access-key:
+    id: id
+    secret: secret

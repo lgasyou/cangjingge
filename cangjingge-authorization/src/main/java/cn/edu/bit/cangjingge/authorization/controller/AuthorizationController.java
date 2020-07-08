@@ -1,11 +1,14 @@
 package cn.edu.bit.cangjingge.authorization.controller;
 
 import cn.edu.bit.cangjingge.authorization.entity.UserAuthInfo;
+import cn.edu.bit.cangjingge.authorization.service.AliyunOssServiceImpl;
 import cn.edu.bit.cangjingge.authorization.service.AuthorizationServiceImpl;
+import cn.edu.bit.cangjingge.common.dto.AliyunOssAuthorization;
 import cn.edu.bit.cangjingge.common.response.Response;
 import cn.edu.bit.cangjingge.common.response.ResponseStatusEnum;
 import cn.edu.bit.cangjingge.common.response.ResponseUtil;
 import cn.edu.bit.cangjingge.common.security.RequiresAuthorization;
+import com.aliyuncs.exceptions.ClientException;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,6 +19,17 @@ public class AuthorizationController {
 
     @Resource
     AuthorizationServiceImpl authorizationService;
+
+    @Resource
+    AliyunOssServiceImpl ossService;
+
+    @ApiOperation("获取访问图片的授权信息（需要认证，用户权限及以上）")
+    @GetMapping("/token/image")
+    @RequiresAuthorization
+    public Response<AliyunOssAuthorization> getImageAuthorization() throws ClientException {
+        AliyunOssAuthorization authorization = ossService.getOssAuthorization();
+        return ResponseUtil.success(authorization);
+    }
 
     @ApiOperation("获得授权信息")
     @PostMapping("/token")

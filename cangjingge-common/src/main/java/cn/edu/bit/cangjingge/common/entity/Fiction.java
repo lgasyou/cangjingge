@@ -28,4 +28,7 @@ public class Fiction {
     @ApiModelProperty("上次修改时间")
     private Date modifiedTimestamp;
 
+    @ApiModelProperty("封面图片在OSS中的URL")
+    private String coverUrl;
+
 }

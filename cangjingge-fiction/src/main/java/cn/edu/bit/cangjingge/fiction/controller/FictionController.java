@@ -3,15 +3,16 @@ package cn.edu.bit.cangjingge.fiction.controller;
 import cn.edu.bit.cangjingge.common.entity.Fiction;
 import cn.edu.bit.cangjingge.common.exception.BusinessException;
 import cn.edu.bit.cangjingge.common.response.Response;
+import cn.edu.bit.cangjingge.common.response.ResponseUtil;
 import cn.edu.bit.cangjingge.common.security.RequiresAuthorization;
 import cn.edu.bit.cangjingge.fiction.service.FictionServiceImpl;
+import com.aliyuncs.exceptions.ClientException;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -55,6 +56,17 @@ public class FictionController {
             final String description
     ) {
         return fictionService.createFiction2(authorId, title, description);
+    }
+
+    @ApiOperation("设置小说封面（需要认证，用户权限及以上）")
+    @PutMapping("/{id}/cover")
+    @RequiresAuthorization
+    public Response<String> setCover(
+            @PathVariable Long id,
+            @RequestParam MultipartFile avatar
+    ) throws IOException, ClientException {
+        String avatarName = fictionService.setCover(id, avatar);
+        return ResponseUtil.success(avatarName);
     }
 
 }

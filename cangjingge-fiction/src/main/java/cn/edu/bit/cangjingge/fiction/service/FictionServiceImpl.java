@@ -7,9 +7,13 @@ import cn.edu.bit.cangjingge.common.response.Response;
 import cn.edu.bit.cangjingge.common.response.ResponseStatusEnum;
 import cn.edu.bit.cangjingge.common.response.ResponseUtil;
 import cn.edu.bit.cangjingge.fiction.dao.FictionDao;
+import cn.edu.bit.cangjingge.fiction.image.ImageManager;
+import com.aliyuncs.exceptions.ClientException;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
@@ -18,9 +22,8 @@ public class FictionServiceImpl {
     @Resource
     FictionDao fictionDao;
 
-    public Integer hello() {
-        throw new BusinessException(ResponseStatusEnum.USER_NOT_FOUND);
-    }
+    @Resource
+    ImageManager imageManager;
 
     public Response<List<Fiction>> getFictionByTitle(String title) {
         return ResponseUtil.success(fictionDao.getFictionByTitle(title));
@@ -33,12 +36,17 @@ public class FictionServiceImpl {
         return ResponseUtil.success(fiction);
     }
 
-    //public Response createFiction(Long authorId, String title, String description) {
-    //    Date date = new Date();
-    //    if (fictionDao.saveFiction(authorId, title, description, date, date))
-    //        return ResponseUtil.success(fictionDao.getFictionByAuthorIdAndCreateTimestamp(authorId, date));
-    //    throw new BusinessException(ResponseStatusEnum.FICTION_CREATION_FAILURE);
-    //}
+    public String setCover(
+            final Long id,
+            final MultipartFile avatar
+    ) throws IOException, ClientException {
+        if (fictionDao.getFictionById(id) == null) {
+            throw new BusinessException(ResponseStatusEnum.FICTION_NOT_FOUND);
+        }
+        final String coverUrl = imageManager.upload(avatar, id);
+        fictionDao.updateCover(id, coverUrl);
+        return coverUrl;
+    }
 
     public Response<Fiction> createFiction2(Long authorId, String title, String description) {
         Date date = new Date();
@@ -53,16 +61,6 @@ public class FictionServiceImpl {
             return ResponseUtil.success(fictionDao.getFictionById(fiction.getId()));
         throw new BusinessException(ResponseStatusEnum.FICTION_CREATION_FAILURE);
     }
-
-    //public Response createFictionChapter(Long fictionId, String title, String content) {
-    //    Fiction fiction = fictionDao.getFictionById(fictionId);
-    //    if (fiction == null) throw new BusinessException(ResponseStatusEnum.FICTION_NOT_FOUND);
-    //    List<FictionChapter> fictionChapters = fictionDao.getFictionChapterByFictionId(fictionId);
-    //    long chapterId = fictionChapters.size() + 1;
-    //    if (fictionDao.saveFictionChapter(chapterId, fictionId, title, content) != -1)
-    //        return ResponseUtil.success(getFictionChapterByFictionIdAndChapterId(fictionId, chapterId));
-    //    throw new BusinessException(ResponseStatusEnum.FICTION_CHAPTER_CREATION_FAILURE);
-    //}
 
     public Response<FictionChapter> createFictionChapter2(Long fictionId, String title, String content) {
         Fiction fiction = fictionDao.getFictionById(fictionId);

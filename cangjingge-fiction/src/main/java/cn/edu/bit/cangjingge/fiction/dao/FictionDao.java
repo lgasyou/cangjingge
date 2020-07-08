@@ -15,25 +15,16 @@ public interface FictionDao {
     @Select(value = "select * from fiction where id=#{id}")
     Fiction getFictionById(Long id);
 
-    //@Select(value = "select * from fiction where authorId=#{authorId} and createTimestamp=#{createTimestamp}")
-    //Fiction getFictionByAuthorIdAndCreateTimestamp(
-    //        @Param("authorId") Long id,
-    //        @Param("createTimestamp") Date createTimestamp);
-
-    //@Insert(value = "insert into fiction(authorId,title,description,createTimestamp,modifiedTimestamp) " +
-    //        "values(#{authorId},#{title},#{description},#{createTimestamp},#{modifiedTimestamp})")
-    //@Options(useGeneratedKeys=true, keyColumn="id")
-    //boolean saveFiction(
-    //        @Param("authorId")Long authorId,
-    //        @Param("title")String title,
-    //        @Param("description")String description,
-    //        @Param("createTimestamp")Date createTimestamp,
-    //        @Param("modifiedTimestamp")Date modifiedTimestamp);
-
-    @Insert(value = "insert into fiction(authorId,title,description,createTimestamp,modifiedTimestamp) " +
-            "values(#{authorId},#{title},#{description},#{createTimestamp},#{modifiedTimestamp})")
+    @Insert(value = "insert into fiction(authorId,title,description,createTimestamp,modifiedTimestamp, coverUrl) " +
+            "values(#{authorId},#{title},#{description},#{createTimestamp},#{modifiedTimestamp}, '')")
     @Options(useGeneratedKeys=true, keyProperty="id", keyColumn="id")
     Long saveFiction2(Fiction fiction);
+
+    @Update(value = "update fiction set coverUrl=#{coverUrl} where id=#{id}")
+    void updateCover(
+            @Param("id") Long id,
+            @Param("coverUrl") String coverUrl
+    );
 
     @Select(value = "select * from chapter where id=#{chapterId} and fictionId=#{fictionId}")
     FictionChapter getFictionChapterByChapterIdAndFictionId(

@@ -120,6 +120,7 @@ data:
     `description` varchar(1000) default null comment '简介',
     `createTimestamp` date default null comment '起始日期',
     `modifiedTimestamp` date default null comment '上次修改时间',
+    `coverUrl` varchar(255) not null default '',
     primary key (`id`)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
